@@ -39,11 +39,24 @@ public class ArrayUtils {
         return result;
     }
 
+    public int[] reverseArray(int[] arr, int start, int end) {
+        while (start < end) {
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
+        return arr;
+    }
+
     public static void main(String[] args) {
+        int[] myArray = { 3, 4, 5, 6, 7, 8 };
         ArrayUtils arrayUtils = new ArrayUtils();
         // arrayUtils.arrayDemo();
-        int[] myArray = { 3, 4, 5, 6, 7, 8 };
-        int[] result = arrayUtils.removeEven(myArray);
+        // int[] result = arrayUtils.removeEven(myArray);
+        // arrayUtils.printArray(result);
+        int[] result = arrayUtils.reverseArray(myArray, 0, 3);
         arrayUtils.printArray(result);
     }
 }
