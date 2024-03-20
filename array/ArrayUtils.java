@@ -50,13 +50,25 @@ public class ArrayUtils {
         return arr;
     }
 
+    public int findMin(int[] arr) {
+        int min = arr[0];
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] < min) {
+                min = arr[i];
+            }
+        }
+
+        return min;
+    }
+
     public static void main(String[] args) {
-        int[] myArray = { 3, 4, 5, 6, 7, 8 };
+        int[] myArray = { 3, 4, 5, 1, 7, 8 };
         ArrayUtils arrayUtils = new ArrayUtils();
         // arrayUtils.arrayDemo();
-        // int[] result = arrayUtils.removeEven(myArray);
+        // int[] result = arrayUtils.removeEven(myArray)
         // arrayUtils.printArray(result);
-        int[] result = arrayUtils.reverseArray(myArray, 0, 3);
-        arrayUtils.printArray(result);
+        // int[] result = arrayUtils.reverseArray(myArray, 0, 3);
+        // arrayUtils.printArray(result);
+        System.out.println(arrayUtils.findMin(myArray));
     }
 }
