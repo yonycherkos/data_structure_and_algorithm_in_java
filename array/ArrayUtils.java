@@ -75,6 +75,14 @@ public class ArrayUtils {
         return arr;
     }
 
+    public int[] resize(int[] arr, int capacity) {
+        int[] temp = new int[capacity];
+        for (int i = 0; i < arr.length; i++) {
+            temp[i] = arr[i];
+        }
+        return temp;
+    }
+
     public void printArray(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
@@ -85,8 +93,7 @@ public class ArrayUtils {
     public void arrayDemo() {
         int[] arr = { 8, 1, 0, 2, 1, 0, 3 };
         printArray(arr);
-        moveZeros(arr);
-        printArray(arr);
+        printArray(resize(arr, arr.length * 2));
     }
 
     public static void main(String[] args) {
