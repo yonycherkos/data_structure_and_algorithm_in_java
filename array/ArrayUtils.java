@@ -83,6 +83,21 @@ public class ArrayUtils {
         return temp;
     }
 
+    /**
+     * Finds the missing number in the given integer array containing
+     * numbers from 1 to n.
+     * Calculates the sum of numbers from 1 to n, subtracts the sum
+     * of the given array, returning the difference which is the missing number.
+     */
+    public int findMissingNumber(int[] arr, int n) {
+        int nSum = (n * (n + 1)) / 2;
+        int arrSum = 0;
+        for (int num : arr) {
+            arrSum += num;
+        }
+        return nSum - arrSum;
+    }
+
     public void printArray(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
