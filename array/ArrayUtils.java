@@ -103,6 +103,27 @@ public class ArrayUtils {
         return sum;
     }
 
+    /**
+     * Checks if the given word is a palindrome by comparing the first
+     * and last characters while moving the start and end pointers
+     * towards the middle.
+     *
+     * @param word The word to check if it is a palindrome.
+     * @return True if the word is a palindrome, false otherwise.
+     */
+    public boolean isPalidrome(String word) {
+        int start = 0;
+        int end = word.length() - 1;
+        while (start < end) {
+            if (word.charAt(start) != word.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
+    }
+
     public void printArray(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
@@ -111,8 +132,7 @@ public class ArrayUtils {
     }
 
     public void arrayDemo() {
-        int[] arr = { 1, 2, 3, 5 };
-        System.out.println(findMissingNumber(arr));
+        System.out.println("is palidrome: " + isPalidrome("madam"));
     }
 
     public static void main(String[] args) {
