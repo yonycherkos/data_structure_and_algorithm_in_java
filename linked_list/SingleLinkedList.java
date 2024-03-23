@@ -35,6 +35,23 @@ public class SingleLinkedList {
         }
     }
 
+    public void insertNodeAtPosition(int data, int position) {
+        ListNode newNode = new ListNode(data);
+        if (position == 1) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            int count = 1;
+            ListNode currNode = head;
+            while (count < position - 1) {
+                currNode = currNode.next;
+                count++;
+            }
+            newNode.next = currNode.next;
+            currNode.next = newNode;
+        }
+    }
+
     public void print() {
         ListNode currNode = head;
         while (currNode != null) {
@@ -56,11 +73,12 @@ public class SingleLinkedList {
 
     public static void main(String[] args) {
         SingleLinkedList singleLinkedList = new SingleLinkedList();
-        singleLinkedList.head = new ListNode(1);
-        singleLinkedList.addNode(2);
+        singleLinkedList.head = new ListNode(2);
         singleLinkedList.addNode(3);
-        singleLinkedList.insertNodeAtBegining(4);
-        System.out.println("length: " + singleLinkedList.getLength());
+        singleLinkedList.addNode(4);
+        singleLinkedList.insertNodeAtBegining(1);
+        singleLinkedList.insertNodeAtPosition(5, 3);
+        System.out.println("Length: " + singleLinkedList.getLength());
         singleLinkedList.print();
     }
 }
