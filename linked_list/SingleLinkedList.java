@@ -121,6 +121,17 @@ public class SingleLinkedList {
         return slowPtr;
     }
 
+    public void removeDuplicates() {
+        ListNode currNode = head;
+        while (currNode != null && currNode.next != null) {
+            if (currNode.data == currNode.next.data) {
+                currNode.next = currNode.next.next;
+            } else {
+                currNode = currNode.next;
+            }
+        }
+    }
+
     public void printLinkedList() {
         ListNode currNode = head;
         while (currNode != null) {
@@ -153,7 +164,7 @@ public class SingleLinkedList {
         sll.addNode(3);
         sll.addNode(4);
         sll.insertNodeAtBegining(1);
-        sll.insertNodeAtPosition(5, 3);
+        sll.insertNodeAtPosition(3, 3);
         // sll.deleteFirstNode();
         // sll.deleteLastNode();
         // sll.deleteNodeAtPosition(2);
@@ -161,5 +172,7 @@ public class SingleLinkedList {
         sll.printLinkedList();
         sll.printNode(sll.searchData(3));
         sll.printNode(sll.findMiddleNode());
+        sll.removeDuplicates();
+        sll.printLinkedList();
     }
 }
