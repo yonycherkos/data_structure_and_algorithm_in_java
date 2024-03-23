@@ -12,13 +12,23 @@ public class SingleLinkedList {
         }
     }
 
-    public void printLinkedList() {
+    public void print() {
         ListNode currNode = head;
         while (currNode != null) {
             System.out.print(currNode.data + "-->");
             currNode = currNode.next;
         }
         System.out.println();
+    }
+
+    public int getLength() {
+        int length = 0;
+        ListNode currNode = head;
+        while (currNode != null) {
+            length++;
+            currNode = currNode.next;
+        }
+        return length;
     }
 
     public static void main(String[] args) {
@@ -28,6 +38,7 @@ public class SingleLinkedList {
         ListNode third = new ListNode(6);
         singleLinkedList.head.next = second;
         second.next = third;
-        singleLinkedList.printLinkedList();
+        System.out.println("length: " + singleLinkedList.getLength());
+        singleLinkedList.print();
     }
 }
