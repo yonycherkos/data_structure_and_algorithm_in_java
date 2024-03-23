@@ -52,6 +52,18 @@ public class SingleLinkedList {
         }
     }
 
+    public void deleteFirstNode() {
+        head = head.next;
+    }
+
+    public void deleteLastNode() {
+        ListNode currNode = head;
+        while (currNode.next.next != null) {
+            currNode = currNode.next;
+        }
+        currNode.next = null;
+    }
+
     public void print() {
         ListNode currNode = head;
         while (currNode != null) {
@@ -78,6 +90,8 @@ public class SingleLinkedList {
         singleLinkedList.addNode(4);
         singleLinkedList.insertNodeAtBegining(1);
         singleLinkedList.insertNodeAtPosition(5, 3);
+        singleLinkedList.deleteFirstNode();
+        singleLinkedList.deleteLastNode();
         System.out.println("Length: " + singleLinkedList.getLength());
         singleLinkedList.print();
     }
