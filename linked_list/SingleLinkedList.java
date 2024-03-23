@@ -89,6 +89,28 @@ public class SingleLinkedList {
         return null;
     }
 
+    /**
+     * Reverses the order of the nodes in the linked list.
+     * 
+     * Uses a three-pointer algorithm that iterates through the list,
+     * reversing the next pointer of each node to point to the previous node.
+     * 
+     * Time complexity is O(N) to iterate through the list.
+     * Space complexity is O(1) since only a constant amount of pointers are used.
+     */
+    public void reverse() {
+        ListNode prev = null;
+        ListNode current = head;
+        ListNode next = null;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        head = prev;
+    }
+
     public void printLinkedList() {
         ListNode currNode = head;
         while (currNode != null) {
