@@ -78,13 +78,31 @@ public class SingleLinkedList {
         }
     }
 
-    public void print() {
+    public ListNode searchData(int data) {
+        ListNode currNode = head;
+        while (currNode != null) {
+            if (currNode.data == data) {
+                return currNode;
+            }
+            currNode = currNode.next;
+        }
+        return null;
+    }
+
+    public void printLinkedList() {
         ListNode currNode = head;
         while (currNode != null) {
             System.out.print(currNode.data + "-->");
             currNode = currNode.next;
         }
         System.out.println();
+    }
+
+    public void printNode(ListNode node) {
+        if (node == null)
+            return;
+        System.out.println("data: " + node.data);
+        System.out.println("next: " + node.next.data);
     }
 
     public int getLength() {
@@ -104,10 +122,11 @@ public class SingleLinkedList {
         singleLinkedList.addNode(4);
         singleLinkedList.insertNodeAtBegining(1);
         singleLinkedList.insertNodeAtPosition(5, 3);
-        singleLinkedList.deleteFirstNode();
-        singleLinkedList.deleteLastNode();
-        singleLinkedList.deleteNodeAtPosition(2);
+        // singleLinkedList.deleteFirstNode();
+        // singleLinkedList.deleteLastNode();
+        // singleLinkedList.deleteNodeAtPosition(2);
         System.out.println("Length: " + singleLinkedList.getLength());
-        singleLinkedList.print();
+        singleLinkedList.printLinkedList();
+        singleLinkedList.printNode(singleLinkedList.searchData(3));
     }
 }
