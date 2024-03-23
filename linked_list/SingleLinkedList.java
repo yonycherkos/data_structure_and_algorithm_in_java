@@ -12,6 +12,19 @@ public class SingleLinkedList {
         }
     }
 
+    public void addNode(int data) {
+        ListNode newNode = new ListNode(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            ListNode currNode = head;
+            while (currNode.next != null) {
+                currNode = currNode.next;
+            }
+            currNode.next = newNode;
+        }
+    }
+
     public void print() {
         ListNode currNode = head;
         while (currNode != null) {
