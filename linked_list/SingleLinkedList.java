@@ -64,6 +64,20 @@ public class SingleLinkedList {
         currNode.next = null;
     }
 
+    public void deleteNodeAtPosition(int position) {
+        if (position == 1) {
+            head = head.next;
+        } else {
+            int count = 1;
+            ListNode currNode = head;
+            while (count < position - 1) {
+                currNode = currNode.next;
+                count++;
+            }
+            currNode.next = currNode.next.next;
+        }
+    }
+
     public void print() {
         ListNode currNode = head;
         while (currNode != null) {
@@ -92,6 +106,7 @@ public class SingleLinkedList {
         singleLinkedList.insertNodeAtPosition(5, 3);
         singleLinkedList.deleteFirstNode();
         singleLinkedList.deleteLastNode();
+        singleLinkedList.deleteNodeAtPosition(2);
         System.out.println("Length: " + singleLinkedList.getLength());
         singleLinkedList.print();
     }
