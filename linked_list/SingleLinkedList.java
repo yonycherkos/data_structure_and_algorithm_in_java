@@ -132,6 +132,19 @@ public class SingleLinkedList {
         }
     }
 
+    public boolean detectLoop() {
+        ListNode slowPtr = head;
+        ListNode fastPtr = head;
+        while (fastPtr != null && fastPtr.next != null) {
+            slowPtr = slowPtr.next;
+            fastPtr = fastPtr.next.next;
+            if (slowPtr == fastPtr) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void printLinkedList() {
         ListNode currNode = head;
         while (currNode != null) {
@@ -174,5 +187,6 @@ public class SingleLinkedList {
         sll.printNode(sll.findMiddleNode());
         sll.removeDuplicates();
         sll.printLinkedList();
+        System.out.println("Detect Loop: " + sll.detectLoop());
     }
 }
