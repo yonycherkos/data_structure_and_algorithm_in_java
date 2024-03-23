@@ -25,6 +25,16 @@ public class SingleLinkedList {
         }
     }
 
+    public void insertNodeAtBegining(int data) {
+        ListNode newNode = new ListNode(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            newNode.next = head;
+            head = newNode;
+        }
+    }
+
     public void print() {
         ListNode currNode = head;
         while (currNode != null) {
@@ -46,11 +56,10 @@ public class SingleLinkedList {
 
     public static void main(String[] args) {
         SingleLinkedList singleLinkedList = new SingleLinkedList();
-        singleLinkedList.head = new ListNode(10);
-        ListNode second = new ListNode(3);
-        ListNode third = new ListNode(6);
-        singleLinkedList.head.next = second;
-        second.next = third;
+        singleLinkedList.head = new ListNode(1);
+        singleLinkedList.addNode(2);
+        singleLinkedList.addNode(3);
+        singleLinkedList.insertNodeAtBegining(4);
         System.out.println("length: " + singleLinkedList.getLength());
         singleLinkedList.print();
     }
