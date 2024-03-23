@@ -111,6 +111,16 @@ public class SingleLinkedList {
         head = prev;
     }
 
+    public ListNode findMiddleNode() {
+        ListNode slowPtr = head;
+        ListNode fastPtr = head;
+        while (fastPtr != null && fastPtr.next != null) {
+            slowPtr = slowPtr.next;
+            fastPtr = fastPtr.next.next;
+        }
+        return slowPtr;
+    }
+
     public void printLinkedList() {
         ListNode currNode = head;
         while (currNode != null) {
@@ -138,17 +148,18 @@ public class SingleLinkedList {
     }
 
     public static void main(String[] args) {
-        SingleLinkedList singleLinkedList = new SingleLinkedList();
-        singleLinkedList.head = new ListNode(2);
-        singleLinkedList.addNode(3);
-        singleLinkedList.addNode(4);
-        singleLinkedList.insertNodeAtBegining(1);
-        singleLinkedList.insertNodeAtPosition(5, 3);
-        // singleLinkedList.deleteFirstNode();
-        // singleLinkedList.deleteLastNode();
-        // singleLinkedList.deleteNodeAtPosition(2);
-        System.out.println("Length: " + singleLinkedList.getLength());
-        singleLinkedList.printLinkedList();
-        singleLinkedList.printNode(singleLinkedList.searchData(3));
+        SingleLinkedList sll = new SingleLinkedList();
+        sll.head = new ListNode(2);
+        sll.addNode(3);
+        sll.addNode(4);
+        sll.insertNodeAtBegining(1);
+        sll.insertNodeAtPosition(5, 3);
+        // sll.deleteFirstNode();
+        // sll.deleteLastNode();
+        // sll.deleteNodeAtPosition(2);
+        System.out.println("Length: " + sll.getLength());
+        sll.printLinkedList();
+        sll.printNode(sll.searchData(3));
+        sll.printNode(sll.findMiddleNode());
     }
 }
