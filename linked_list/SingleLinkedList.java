@@ -12,11 +12,22 @@ public class SingleLinkedList {
         }
     }
 
+    public void printLinkedList() {
+        ListNode currNode = head;
+        while (currNode != null) {
+            System.out.print(currNode.data + "-->");
+            currNode = currNode.next;
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
-        ListNode head = new ListNode(10);
+        SingleLinkedList singleLinkedList = new SingleLinkedList();
+        singleLinkedList.head = new ListNode(10);
         ListNode second = new ListNode(3);
         ListNode third = new ListNode(6);
-        head.next = second;
+        singleLinkedList.head.next = second;
         second.next = third;
+        singleLinkedList.printLinkedList();
     }
 }
