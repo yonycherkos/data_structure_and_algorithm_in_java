@@ -42,6 +42,18 @@ public class DoubleLinkedList {
         }
     }
 
+    public void addNode(int data) {
+        ListNode newNode = new ListNode(data);
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail.next = newNode;
+            newNode.previous = tail;
+            tail = newNode;
+        }
+    }
+
     public static void main(String[] args) {
     }
 }
