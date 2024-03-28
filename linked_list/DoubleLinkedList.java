@@ -54,6 +54,16 @@ public class DoubleLinkedList {
         }
     }
 
+    public void deleteFirstNode() {
+        head = head.next;
+        head.previous = null;
+    }
+
+    public void deleteLastNode() {
+        tail = tail.previous;
+        tail.next = null;
+    }
+
     public static void main(String[] args) {
     }
 }
