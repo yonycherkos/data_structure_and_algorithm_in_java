@@ -30,6 +30,18 @@ public class DoubleLinkedList {
         System.out.print("null");
     }
 
+    public void insertNodeAtBegining(int data) {
+        ListNode newNode = new ListNode(data);
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode.next = head;
+            head.previous = newNode;
+            head = newNode;
+        }
+    }
+
     public static void main(String[] args) {
     }
 }
