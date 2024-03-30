@@ -31,13 +31,31 @@ public class StackUtils {
         return result;
     }
 
+    public boolean isValid(String str) {
+        Stack<Character> stack = new Stack<>();
+        char[] chars = str.toCharArray();
+        for (char c : chars) {
+            if (c == '(' || c == '[' || c == '{') {
+                stack.push(c);
+            } else {
+                if (stack.isEmpty())
+                    return false;
+
+                char top = stack.peek();
+                if ((c == ')' && top == '(') || (c == ']' && top == '[') || (c == '}' && top == '{')) {
+                    stack.pop();
+                } else {
+                    stack.push(c);
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
+
     public static void main(String[] args) {
         StackUtils stackUtils = new StackUtils();
-        int[] arr = { 4, 7, 3, 4, 8, 1 };
-        int[] result = stackUtils.nextGreaters(arr);
-        System.out.println();
-        for (int i : result) {
-            System.out.print(i + " ");
-        }
+        String input = "[{()}]";
+        boolean result = stackUtils.isValid(input);
+        System.out.println("Is Valid: " + result);
     }
 }
