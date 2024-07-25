@@ -45,8 +45,24 @@ public class HackerRank {
         System.out.println(String.format("%.6f", (double) zeroCount / arr.size()));
     }
 
+    /*
+     * Its base and height are both equal to . It is drawn using # symbols and
+     * spaces. The last line is not preceded by any spaces.
+     * Write a program that prints a staircase of size .
+     */
+    public static void staircase(int n) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n - i; j++)
+                System.out.print(" ");
+            for (int j = n - i + 1; j <= n; j++)
+                System.out.print("#");
+            System.out.println();
+        }
+    }
+
     public static void main(String[] args) {
-        List<Integer> arr = Arrays.asList(1, 1, 0, -1, -1);
-        plusMinus(arr);
+        // List<Integer> arr = Arrays.asList(1, 1, 0, -1, -1);
+        // plusMinus(arr);
+        staircase(6);
     }
 }
