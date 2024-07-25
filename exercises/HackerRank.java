@@ -93,10 +93,32 @@ public class HackerRank {
         System.out.println(minSum + " " + maxSum);
     }
 
+    /*
+     * You are in charge of the cake for a child's birthday. You have decided the
+     * cake will have one candle for each year of their total age. They will only be
+     * able to blow out the tallest of the candles. Count how many candles are
+     * tallest.
+     */
+    public static int birthdayCakeCandles(List<Integer> candles) {
+        int max = Integer.MIN_VALUE;
+        int count = 0;
+        for (Integer num : candles) {
+            if (num > max) {
+                max = num;
+                count = 1;
+            } else if (num == max) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         // List<Integer> arr = Arrays.asList(1, 1, 0, -1, -1);
         // plusMinus(arr);
         // staircase(6);
-        minMaxSum(Arrays.asList(1, 3, 5, 7, 9));
+        // minMaxSum(Arrays.asList(1, 3, 5, 7, 9));
+        List<Integer> arr = Arrays.asList(4, 4, 0, 1, 3);
+        System.out.println(birthdayCakeCandles(arr));
     }
 }
