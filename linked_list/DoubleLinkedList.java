@@ -3,7 +3,6 @@ package linked_list;
 public class DoubleLinkedList {
     private ListNode head;
     private ListNode tail;
-    private int length;
 
     private static class ListNode {
         private int data;
@@ -18,7 +17,6 @@ public class DoubleLinkedList {
     public DoubleLinkedList() {
         this.head = null;
         this.tail = null;
-        this.length = 0;
     }
 
     public void print() {
