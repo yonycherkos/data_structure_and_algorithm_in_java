@@ -125,6 +125,52 @@ public class MeharashiEntranceExam1 {
         return output;
     }
 
+    public int[] findCommonArray(int[] arr1, int[] arr2) {
+        if (arr1 == null || arr2 == null) {
+            return null;
+        }
+
+        if (arr1.length == 0 || arr2.length == 0) {
+            return new int[0];
+        }
+
+        int count = 0;
+        int[] result = new int[arr1.length];
+        for (int i = 0; i < arr1.length; i++) {
+            for (int j = 0; j < arr2.length; j++) {
+                if (arr1[i] == arr2[j]) {
+                    result[count] = arr1[i];
+                    count++;
+                    break;
+                }
+            }
+        }
+
+        int[] output = new int[count];
+        for (int i = 0; i < count; i++) {
+            output[i] = result[i];
+        }
+
+        return output;
+    }
+
+    public int diffOddEvenSum(int[] arr) {
+        if (arr == null || arr.length == 0)
+            return 0;
+
+        int oddSum = 0;
+        int evenSum = 0;
+        for (int num : arr) {
+            if (num % 2 == 0) {
+                evenSum += num;
+            } else {
+                oddSum += num;
+            }
+        }
+
+        return oddSum - evenSum;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -134,7 +180,10 @@ public class MeharashiEntranceExam1 {
 
     public static void main(String[] args) {
         MeharashiEntranceExam1 mee = new MeharashiEntranceExam1();
-        int[] arr = { 1, 2, 3, 1, 3 };
-        System.out.println(mee.reverseNum(-1234));
+        int[] arr1 = { 1, 8, 3, 2 };
+        int[] arr2 = { 4, 2, 6, 1 };
+        int[] result = mee.findCommonArray(arr1, arr2);
+        mee.printArray(result);
+        System.out.println("len: " + result.length);
     }
 }
