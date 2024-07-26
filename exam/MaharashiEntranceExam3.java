@@ -1,6 +1,6 @@
 package exam;
 
-public class MeharashiEntraceExam2 {
+public class MaharashiEntranceExam3 {
     // Questions - 1
     public int isEvenDigits(int n) {
         while (n > 0) {
@@ -592,7 +592,7 @@ public class MeharashiEntraceExam2 {
     }
 
     public static void main(String[] args) {
-        MeharashiEntraceExam2 mee = new MeharashiEntraceExam2();
+        MaharashiEntranceExam3 mee = new MaharashiEntranceExam3();
         int[] arr = { 2, 5, 6, 9 };
         System.out.println(mee.isBalancedArray(arr));
     }
