@@ -113,6 +113,23 @@ public class MaharashiEntranceExam2 {
         return 1;
     }
 
+    // Question - 6: An array can hold the digits of a number. For example the
+    // digits of the number 32053 are stored in the array {3, 2, 0, 5, 3}. Write a
+    // method call repsEqual that takes an array and an integer and returs 1 if the
+    // array contains only the digits of the number in the same order that they
+    // appear in the number. Otherwise it returns 0.
+    public int repsEqual(int[] arr, int n) {
+        int lastDigit;
+        for (int i = arr.length - 1; i >= 0; i--) {
+            lastDigit = n % 10;
+            n /= 10;
+            if (lastDigit != arr[i]) {
+                return 0;
+            }
+        }
+        return 1;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -122,7 +139,7 @@ public class MaharashiEntranceExam2 {
 
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
-        int[] arr = { 2, 8, 4, 2 };
-        System.out.println("isDivisor: " + mee.isDivisible(arr, 2));
+        int[] arr = { 3, 2, 0, 5, 3 };
+        System.out.println("repsEqual: " + mee.repsEqual(arr, 32053));
     }
 }
