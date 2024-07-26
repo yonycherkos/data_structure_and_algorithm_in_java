@@ -191,6 +191,26 @@ public class MaharashiEntranceExam2 {
         return 1;
     }
 
+    // Question - 9: find a stanton sequence for a given array
+    public int isStantonSequence(int[] arr) {
+        if (arr == null || arr.length == 0)
+            return 0;
+
+        int n = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 1)
+                n++;
+        }
+
+        int count = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == n)
+                count++;
+        }
+
+        return count;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -200,7 +220,7 @@ public class MaharashiEntranceExam2 {
 
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
-        int[] arr = { 8, 4, 2 };
-        System.out.println("isGuthrieSequence: " + mee.isGuthrieSequence(arr));
+        int[] arr = { 3, 1, 1, 4 };
+        System.out.println("isStantonSequence: " + mee.isStantonSequence(arr));
     }
 }
