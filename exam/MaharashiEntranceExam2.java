@@ -166,6 +166,31 @@ public class MaharashiEntranceExam2 {
         return 0;
     }
 
+    // Question - 8: find a guthrie sequence for a given array
+    public int isGuthrieSequence(int[] arr) {
+        if (arr == null || arr.length == 0)
+            return 0;
+
+        int len = arr.length;
+        if (arr[len - 1] != 1)
+            return 0;
+
+        int result = arr[0];
+        for (int i = 1; i < len; i++) {
+            if (result % 2 == 0) {
+                result /= 2;
+            } else {
+                result = 3 * result + 1;
+            }
+
+            if (result != arr[i]) {
+                return 0;
+            }
+        }
+
+        return 1;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -175,7 +200,7 @@ public class MaharashiEntranceExam2 {
 
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
-        int[] arr = { 3, 2, 10, 4, 1, 6, 9 };
-        System.out.println("repsEqual: " + mee.isCentered15(arr));
+        int[] arr = { 8, 4, 2 };
+        System.out.println("isGuthrieSequence: " + mee.isGuthrieSequence(arr));
     }
 }
