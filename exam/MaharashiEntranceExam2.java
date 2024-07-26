@@ -130,6 +130,42 @@ public class MaharashiEntranceExam2 {
         return 1;
     }
 
+    // Question - 7: An array is called centered-15 if some consecutive sequence of
+    // elements of the array sum to 15 and this sequence is preceded and followed by
+    // the same number of elements. For example {3, 2, 10, 4, 1, 6, 9} is
+    // centered-15 because the sequence 10, 4, 1 sums to 15 and the sequence is
+    // preceded by two elements (3, 2) and followed by two elements(6,9).
+    public int isCentered15(int[] arr) {
+        if (arr == null || arr.length == 0)
+            return 0;
+
+        int lowerIndex = 0;
+        int upperIndex = 0;
+        if (arr.length % 2 == 0) {
+            lowerIndex = arr.length / 2 - 1;
+            upperIndex = arr.length / 2;
+        } else {
+            lowerIndex = (arr.length - 1) / 2;
+            upperIndex = lowerIndex;
+        }
+
+        while (lowerIndex > 0 && upperIndex < arr.length) {
+            int sum = 0;
+            for (int i = lowerIndex; i <= upperIndex; i++) {
+                sum += arr[i];
+            }
+
+            if (sum == 15) {
+                return 1;
+            } else {
+                lowerIndex--;
+                upperIndex++;
+            }
+        }
+
+        return 0;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -139,7 +175,7 @@ public class MaharashiEntranceExam2 {
 
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
-        int[] arr = { 3, 2, 0, 5, 3 };
-        System.out.println("repsEqual: " + mee.repsEqual(arr, 32053));
+        int[] arr = { 3, 2, 10, 4, 1, 6, 9 };
+        System.out.println("repsEqual: " + mee.isCentered15(arr));
     }
 }
