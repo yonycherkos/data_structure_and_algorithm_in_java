@@ -3,6 +3,8 @@ package exam;
 public class MaharashiEntranceExam2 {
     // Maharish Question and Answer in Amharic - 2
     // https://www.youtube.com/watch?v=vaqmoDMqmnY&list=PLHK18USBY-PfYp_NwHJe3gpsbbaGWxm8u
+
+    // Question - 1: Write a function to remove duplicates from a given array.
     public int[] removeDuplicates(int[] arr) {
         if (arr == null || arr.length == 0)
             return arr;
@@ -31,6 +33,9 @@ public class MaharashiEntranceExam2 {
         return output;
     }
 
+    // Question - 2: Write a function to reverse an integer using numeric operators
+    // and without
+    // using any arrays or other data structures.
     public int reverseNum(int n) {
         int output = 0;
         while (n != 0) {
@@ -40,6 +45,10 @@ public class MaharashiEntranceExam2 {
         return output;
     }
 
+    // Question - 3: Write a function to return an array containing all elements
+    // common to two
+    // given arrays containing distinct positive integers. You should not use any
+    // inbuilt methods. You are allowed to use any number of arrays.
     public int[] findCommonArray(int[] arr1, int[] arr2) {
         if (arr1 == null || arr2 == null) {
             return null;
@@ -69,6 +78,11 @@ public class MaharashiEntranceExam2 {
         return output;
     }
 
+    // Question - 4: Write a function that takes an array of integers as an argument
+    // and returns a
+    // value based on the sum of the even and odd numbers in the array. Let X = the
+    // sum of the odd numbers in the array and let Y = the sum of the even numbers.
+    // The function should return X - Y
     public int diffOddEvenSum(int[] arr) {
         if (arr == null || arr.length == 0)
             return 0;
@@ -86,6 +100,10 @@ public class MaharashiEntranceExam2 {
         return oddSum - evenSum;
     }
 
+    // Question - 5: Write a method named isDivisible that takes an integer array
+    // and a divisor
+    // and return if all its elements are divided by the divisor with not remainder.
+    // Otherwise it returns 0.
     public int isDivisible(int[] arr, int divisor) {
         for (int num : arr) {
             if (num % divisor != 0) {
