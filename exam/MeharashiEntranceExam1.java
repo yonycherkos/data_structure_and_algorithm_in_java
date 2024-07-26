@@ -171,6 +171,15 @@ public class MeharashiEntranceExam1 {
         return oddSum - evenSum;
     }
 
+    public int isDivisible(int[] arr, int divisor) {
+        for (int num : arr) {
+            if (num % divisor != 0) {
+                return 0;
+            }
+        }
+        return 1;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -180,10 +189,7 @@ public class MeharashiEntranceExam1 {
 
     public static void main(String[] args) {
         MeharashiEntranceExam1 mee = new MeharashiEntranceExam1();
-        int[] arr1 = { 1, 8, 3, 2 };
-        int[] arr2 = { 4, 2, 6, 1 };
-        int[] result = mee.findCommonArray(arr1, arr2);
-        mee.printArray(result);
-        System.out.println("len: " + result.length);
+        int[] arr = { 2, 8, 4, 2 };
+        System.out.println("isDivisor: " + mee.isDivisible(arr, 2));
     }
 }
