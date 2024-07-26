@@ -1,8 +1,7 @@
 package exam;
 
-import java.util.*;
-
 public class MeharashiEntranceExam1 {
+    // Maharish Question and Answer in Amharic - 1
     public int largestFactor(int n) {
         if (n <= 0)
             return 0;
@@ -88,32 +87,54 @@ public class MeharashiEntranceExam1 {
         return 1;
     }
 
+    // Maharish Question and Answer in Amharic - 2
     public int[] removeDuplicates(int[] arr) {
-        Set<Integer> unique = new HashSet<>();
-        for (int i : arr) {
-            unique.add(i);
+        if (arr == null || arr.length == 0)
+            return arr;
+
+        int count = 0;
+        int[] result = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            boolean exists = false;
+            for (int j = 0; j < result.length; j++) {
+                if (arr[i] == result[j]) {
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists) {
+                result[i] = arr[i];
+                count++;
+            }
         }
 
-        int[] result = new int[unique.size()];
-        int index = 0;
-        for (int i : unique) {
-            result[index++] = i;
+        int[] output = new int[count];
+        for (int i = 0; i < count; i++) {
+            output[i] = result[i];
         }
-        return result;
+
+        return output;
     }
 
     public int reverseNum(int n) {
-        int reverse = 0;
-        while (n > 0) {
-            reverse = reverse * 10 + n % 10;
+        int output = 0;
+        while (n != 0) {
+            output = output * 10 + n % 10;
             n /= 10;
         }
-        return reverse;
+        return output;
+    }
+
+    public void printArray(int[] arr) {
+        for (int i : arr) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
     }
 
     public static void main(String[] args) {
         MeharashiEntranceExam1 mee = new MeharashiEntranceExam1();
-        int[] arr = { 12, 54, 8, 3, 4 };
-        System.out.println("Is identical: " + mee.largestSubstract(arr));
+        int[] arr = { 1, 2, 3, 1, 3 };
+        System.out.println(mee.reverseNum(-1234));
     }
 }
