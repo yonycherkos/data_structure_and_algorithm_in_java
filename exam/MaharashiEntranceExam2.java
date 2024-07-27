@@ -279,6 +279,24 @@ public class MaharashiEntranceExam2 {
         return base10;
     }
 
+    // Question - 13: A simple pattern match on the elements of an rray "A" can be
+    // defined using another array "P".
+    // A = {1, 2, 3, -5, -5, 2, 3, 18}, can be defined as P = {3, -2, 3} or {2, 1,
+    // -1, -1, 2, 1}
+    public int matches(int[] a, int[] p) {
+        int idx = 0;
+        for (int i = 0; i < p.length; i++) {
+            for (int j = 0; j < Math.abs(p[i]); j++) {
+                if (!((p[i] > 0 && a[idx] > 0) || (p[i] < 0 && a[idx] < 0))) {
+                    return 0;
+                }
+                idx++;
+            }
+        }
+
+        return 1;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -289,6 +307,8 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        System.out.println(mee.convertToBase10(new int[] { 3, 2, 5 }, 8));
+        int[] a = new int[] { 1, 2, 3, -5, -5, 2, 3, 18 };
+        int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
+        System.out.println("matches: " + mee.matches(a, p));
     }
 }
