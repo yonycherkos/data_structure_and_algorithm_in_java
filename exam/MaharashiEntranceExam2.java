@@ -297,6 +297,25 @@ public class MaharashiEntranceExam2 {
         return 1;
     }
 
+    // Question - 14: An array is defined to be n-unique if exactly on pair of its
+    // elements sum to n. For example, the array {2, 7, 3, 4} is 5-unique because
+    // only a[0] and a[2] sum to 5. But the array {2, 3, 3, 7} is not 5-unique
+    // because a[0] + a[1] = 5 and a[0] + a[2] = 5.
+    public int isNUnique(int[] arr, int n) {
+        int count = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] + arr[j] == n)
+                    count++;
+
+                if (count > 1)
+                    return 0;
+            }
+        }
+
+        return count == 1 ? 1 : 0;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -307,8 +326,8 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        int[] a = new int[] { 1, 2, 3, -5, -5, 2, 3, 18 };
+        int[] a = new int[] { 2, 3, 3, 7 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        System.out.println("matches: " + mee.matches(a, p));
+        System.out.println("isNUnique: " + mee.isNUnique(a, 5));
     }
 }
