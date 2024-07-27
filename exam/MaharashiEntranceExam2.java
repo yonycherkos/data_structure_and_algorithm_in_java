@@ -211,6 +211,27 @@ public class MaharashiEntranceExam2 {
         return count;
     }
 
+    // Question - 10: find a sum factor of an array. the sum factor of an array is
+    // defined to be the number of times that the sum of the array appear as element
+    // of the array.
+    public int sumFactor(int[] arr) {
+        if (arr == null || arr.length == 0)
+            return 0;
+
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+        }
+
+        int count = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == sum)
+                count++;
+        }
+
+        return count;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
