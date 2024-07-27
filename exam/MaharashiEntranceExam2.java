@@ -316,6 +316,26 @@ public class MaharashiEntranceExam2 {
         return count == 1 ? 1 : 0;
     }
 
+    // Question - 15: Write a function named isSquare that returns 1 if its integer
+    // arguments is a square of some integer, otherwise it returns 0. Your function
+    // must not use any function or method(eg. sqrt) that comes with a runtime
+    // library or class library!
+    public int isSquare(int n) {
+        if (n < 0)
+            return 0;
+
+        int i = 0;
+        while (i * i <= n) {
+            if (i * i == n) {
+                System.out.println(i + "x" + i + "=" + n);
+                return 1;
+            }
+            i++;
+        }
+
+        return 0;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -328,6 +348,6 @@ public class MaharashiEntranceExam2 {
         // mee.printArray(mee.factorialSum(10));
         int[] a = new int[] { 2, 3, 3, 7 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        System.out.println("isNUnique: " + mee.isNUnique(a, 5));
+        System.out.println("isSquare: " + mee.isSquare(25));
     }
 }
