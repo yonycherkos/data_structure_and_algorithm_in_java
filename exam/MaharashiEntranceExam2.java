@@ -232,6 +232,36 @@ public class MaharashiEntranceExam2 {
         return count;
     }
 
+    // Question - 11: find two numbers with equal value with a factorial of ten
+    public int[] factorialSum(int n) {
+        int nFactorial = factorial(n);
+
+        int xFactorial;
+        int yFactorial;
+        for (int i = 1; i <= n; i++) {
+            xFactorial = factorial(i);
+            for (int j = 1; j <= n; j++) {
+                yFactorial = factorial(j);
+                System.out.println(i + " " + j + ": " + (xFactorial + yFactorial) + "=" + nFactorial);
+                if (xFactorial + yFactorial == nFactorial) {
+                    System.out.println("x: " + i + " y: " + j);
+                    return new int[] { i, j };
+                }
+            }
+
+        }
+
+        return new int[] { 0, 0 };
+    }
+
+    public int factorial(int n) {
+        int result = 1;
+        for (int i = 1; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -241,7 +271,6 @@ public class MaharashiEntranceExam2 {
 
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
-        int[] arr = { 3, 1, 1, 4 };
-        System.out.println("isStantonSequence: " + mee.isStantonSequence(arr));
+        mee.printArray(mee.factorialSum(10));
     }
 }
