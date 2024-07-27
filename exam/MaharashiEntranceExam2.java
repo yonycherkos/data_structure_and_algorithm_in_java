@@ -364,6 +364,45 @@ public class MaharashiEntranceExam2 {
         return 0;
     }
 
+    // Question - 18: Get Next Porcupine Number from the Given Integer. a porcupine
+    // number is a prime number whose last digit is 9 and the next prime number that
+    // follows it also ends with the digit 9.
+    public int findPorcupineNumber(int n) {
+        int curr = n + 1;
+        while (true) {
+            if (curr % 10 == 9 && isPrime(curr) == 1) {
+                int next = curr + 1;
+                boolean nextFound = false;
+                while (true) {
+                    if (isPrime(next) == 1) {
+                        if (next % 10 == 9) {
+                            nextFound = true;
+                        }
+                        break;
+                    }
+                    next++;
+                }
+
+                if (nextFound) {
+                    return curr;
+                }
+            }
+            curr++;
+        }
+    }
+
+    public int isPrime(int n) {
+        if (n < 2)
+            return 0;
+
+        for (int i = 2; i < n; i++) {
+            if (n % i == 0)
+                return 0;
+        }
+
+        return 1;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -376,6 +415,6 @@ public class MaharashiEntranceExam2 {
         // mee.printArray(mee.factorialSum(10));
         int[] a = new int[] { 2, 3, 3, 7 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        System.out.println("isStacked: " + mee.isStacked(10));
+        System.out.println("findPorcupineNumber: " + mee.findPorcupineNumber(139));
     }
 }
