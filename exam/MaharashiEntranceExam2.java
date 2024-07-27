@@ -349,6 +349,21 @@ public class MaharashiEntranceExam2 {
         return 1;
     }
 
+    // Question - 17: Write a function named isStacked that returns 1 if its
+    // argument is stacked. Otherwise it returns 0. A stacked number is defined to
+    // be a number that is the sum of the first n positive integers for some n.
+    public int isStacked(int n) {
+        int sum = 0;
+        for (int i = 1; i <= n; i++) {
+            sum += i;
+            if (sum == n)
+                return 1;
+            if (sum > n)
+                return 0;
+        }
+        return 0;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -361,6 +376,6 @@ public class MaharashiEntranceExam2 {
         // mee.printArray(mee.factorialSum(10));
         int[] a = new int[] { 2, 3, 3, 7 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        System.out.println("isSquare: " + mee.isSquare(25));
+        System.out.println("isStacked: " + mee.isStacked(10));
     }
 }
