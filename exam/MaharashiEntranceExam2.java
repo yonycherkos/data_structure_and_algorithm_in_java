@@ -262,6 +262,23 @@ public class MaharashiEntranceExam2 {
         return result;
     }
 
+    // Question - 12: Write a method called convertToBase10 that converts its
+    // <array, base> arguments to a base 10 number if the input is legal for the
+    // specific base. if not, it returns 0;
+    public int convertToBase10(int[] arr, int base) {
+        if (arr == null || arr.length == 0)
+            return 0;
+
+        int base10 = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] >= base)
+                return 0;
+            base10 += arr[i] * Math.pow(base, arr.length - i - 1);
+        }
+
+        return base10;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -271,6 +288,7 @@ public class MaharashiEntranceExam2 {
 
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
-        mee.printArray(mee.factorialSum(10));
+        // mee.printArray(mee.factorialSum(10));
+        System.out.println(mee.convertToBase10(new int[] { 3, 2, 5 }, 8));
     }
 }
