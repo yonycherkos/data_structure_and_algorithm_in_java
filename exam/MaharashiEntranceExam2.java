@@ -336,6 +336,19 @@ public class MaharashiEntranceExam2 {
         return 0;
     }
 
+    // Question - 16: Write a method called isLegalNumber that takes two arguments.
+    // The first argument is an array whose elements are the digits of the number to
+    // test. The second argument is the base of the number represented by the first
+    // argument. The method should return 1 if the number is legal for the base,
+    // otherwise it should return 0.
+    public int isLegalNumber(int[] arr, int n) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] >= n)
+                return 0;
+        }
+        return 1;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
