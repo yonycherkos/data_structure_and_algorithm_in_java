@@ -515,6 +515,31 @@ public class MaharashiEntranceExam2 {
         return 0;
     }
 
+    // Question - 24: Write a program which finds the most frequently occurring
+    // elemtn in an array. eg. {4, 1, 1, 4, 2, 3, 4, 4, 1, 2, 4, 9, 3} => 4
+    public int frequentlyOccure(int[] arr) {
+        if (arr == null || arr.length == 0)
+            return 0;
+
+        int maxNum = arr[0];
+        int maxCount = 0;
+        for (int i = 0; i < arr.length; i++) {
+            int count = 0;
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] == arr[j]) {
+                    count++;
+                }
+            }
+
+            if (count > maxCount) {
+                maxCount = count;
+                maxNum = arr[i];
+            }
+        }
+
+        return maxNum;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -525,8 +550,8 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        int[] a = new int[] { 22, 19, 10, 10, 19, 22, 22, 10 };
+        int[] a = new int[] { 4, 1, 1, 4, 2, 3, 4, 4, 1, 2, 4, 9, 3 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        System.out.println("isTrivalentArray: " + mee.isTrivalentArray(a));
+        System.out.println("frequentlyOccure: " + mee.frequentlyOccure(a));
     }
 }
