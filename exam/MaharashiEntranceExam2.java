@@ -34,21 +34,19 @@ public class MaharashiEntranceExam2 {
     }
 
     // Question - 2: Write a function to reverse an integer using numeric operators
-    // and without
-    // using any arrays or other data structures.
+    // and without using any arrays or other data structures.
     public int reverseNum(int n) {
-        int output = 0;
+        int result = 0;
         while (n != 0) {
-            output = output * 10 + n % 10;
+            result = result * 10 + n % 10;
             n /= 10;
         }
-        return output;
+        return result;
     }
 
     // Question - 3: Write a function to return an array containing all elements
-    // common to two
-    // given arrays containing distinct positive integers. You should not use any
-    // inbuilt methods. You are allowed to use any number of arrays.
+    // common to two given arrays containing distinct positive integers. You should
+    // not use any inbuilt methods. You are allowed to use any number of arrays.
     public int[] findCommonArray(int[] arr1, int[] arr2) {
         if (arr1 == null || arr2 == null) {
             return null;
@@ -79,10 +77,9 @@ public class MaharashiEntranceExam2 {
     }
 
     // Question - 4: Write a function that takes an array of integers as an argument
-    // and returns a
-    // value based on the sum of the even and odd numbers in the array. Let X = the
-    // sum of the odd numbers in the array and let Y = the sum of the even numbers.
-    // The function should return X - Y
+    // and returns a value based on the sum of the even and odd numbers in the
+    // array. Let X = the sum of the odd numbers in the array and let Y = the sum of
+    // the even numbers. The function should return X - Y
     public int diffOddEvenSum(int[] arr) {
         if (arr == null || arr.length == 0)
             return 0;
@@ -101,9 +98,8 @@ public class MaharashiEntranceExam2 {
     }
 
     // Question - 5: Write a method named isDivisible that takes an integer array
-    // and a divisor
-    // and return if all its elements are divided by the divisor with not remainder.
-    // Otherwise it returns 0.
+    // and a divisor and return if all its elements are divided by the divisor with
+    // not remainder. Otherwise it returns 0.
     public int isDivisible(int[] arr, int divisor) {
         for (int num : arr) {
             if (num % divisor != 0) {
@@ -167,6 +163,11 @@ public class MaharashiEntranceExam2 {
     }
 
     // Question - 8: find a guthrie sequence for a given array
+    // - it starts with positve number n
+    // - if n is even then divide by 2
+    // - if n is odd then multiply by 3 and add 1
+    // - continue this until n becomes 1
+    // eg. {7, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1}
     public int isGuthrieSequence(int[] arr) {
         if (arr == null || arr.length == 0)
             return 0;
@@ -192,6 +193,8 @@ public class MaharashiEntranceExam2 {
     }
 
     // Question - 9: find a stanton sequence for a given array
+    // - count number of 1's in the array. let this count be n.
+    // - The stanton measure is the number of times that n appears in the array.
     public int isStantonSequence(int[] arr) {
         if (arr == null || arr.length == 0)
             return 0;
@@ -214,6 +217,7 @@ public class MaharashiEntranceExam2 {
     // Question - 10: find a sum factor of an array. the sum factor of an array is
     // defined to be the number of times that the sum of the array appear as element
     // of the array.
+    // eg. {1, -1, 1, -1, 1, -1, 1}
     public int sumFactor(int[] arr) {
         if (arr == null || arr.length == 0)
             return 0;
@@ -233,22 +237,19 @@ public class MaharashiEntranceExam2 {
     }
 
     // Question - 11: find two numbers with equal value with a factorial of ten
+    // X! + Y! = 10!
     public int[] factorialSum(int n) {
-        int nFactorial = factorial(n);
+        long nfactorial10 = factorial(n);
 
-        int xFactorial;
-        int yFactorial;
-        for (int i = 1; i <= n; i++) {
-            xFactorial = factorial(i);
-            for (int j = 1; j <= n; j++) {
-                yFactorial = factorial(j);
-                System.out.println(i + " " + j + ": " + (xFactorial + yFactorial) + "=" + nFactorial);
-                if (xFactorial + yFactorial == nFactorial) {
-                    System.out.println("x: " + i + " y: " + j);
-                    return new int[] { i, j };
+        for (int x = 1; x <= n; x++) {
+            long factorialX = factorial(x);
+            for (int y = x; y <= n; y++) {
+                long factorialY = factorial(y);
+                if (factorialX + factorialY == nfactorial10) {
+                    System.out.println("X = " + x + ", Y = " + y);
+                    return new int[] { x, y };
                 }
             }
-
         }
 
         return new int[] { 0, 0 };
@@ -279,10 +280,9 @@ public class MaharashiEntranceExam2 {
         return base10;
     }
 
-    // Question - 13: A simple pattern match on the elements of an rray "A" can be
-    // defined using another array "P".
-    // A = {1, 2, 3, -5, -5, 2, 3, 18}, can be defined as P = {3, -2, 3} or {2, 1,
-    // -1, -1, 2, 1}
+    // Question - 13: A simple pattern match on the elements of an array "A" can be
+    // defined using another array "P". A = {1, 2, 3, -5, -5, 2, 3, 18}, can be
+    // defined as P = {3, -2, 3} or {2, 1, -1, -1, 2, 1}
     public int matches(int[] a, int[] p) {
         int idx = 0;
         for (int i = 0; i < p.length; i++) {
@@ -352,6 +352,7 @@ public class MaharashiEntranceExam2 {
     // Question - 17: Write a function named isStacked that returns 1 if its
     // argument is stacked. Otherwise it returns 0. A stacked number is defined to
     // be a number that is the sum of the first n positive integers for some n.
+    // eg. 10 = 1 + 2 + 3 + 4
     public int isStacked(int n) {
         int sum = 0;
         for (int i = 1; i <= n; i++) {
@@ -403,6 +404,19 @@ public class MaharashiEntranceExam2 {
         return 1;
     }
 
+    // Question - 19: Check an array to be a Madhav array. A Madhav array has the
+    // following property. a[0] = a[1] + a[2] = a[3] + a[4] + a[5] = a[6] + a[7] +
+    // a[8] + a[9] = ... The length of a Madhav array must be n*(n+1)/2 for some n.
+    // {4, 2, 2, 1, 2, 1, 1, 1,1, 1}
+    public int isMadhavArray(int[] arr) {
+        if (arr == null || arr.length == 0)
+            return 0;
+
+        return 1;
+    }
+
+    // Question - 20:
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -415,6 +429,6 @@ public class MaharashiEntranceExam2 {
         // mee.printArray(mee.factorialSum(10));
         int[] a = new int[] { 2, 3, 3, 7 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        System.out.println("findPorcupineNumber: " + mee.findPorcupineNumber(139));
+        mee.printArray(mee.factorialSum(10));
     }
 }
