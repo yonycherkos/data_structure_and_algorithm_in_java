@@ -556,6 +556,50 @@ public class MaharashiEntranceExam2 {
         return maxPrime;
     }
 
+    // Question - 26: A perfect number is one that is the sum of its factors,
+    // excluding itself. The 1st perfect number is 6 because 6 = 1 + 2 + 3. the 2nd
+    // perfect number is 28 which is equals 1 + 2 + 4 + 7 + 14.
+    // Write a method named henry that takes two integer arguments i and j and
+    // return the sum of the ith and jth perfect numbers.
+    public int henry(int i, int j) {
+        int num = 0;
+        int nth = 0;
+        int sum = 0;
+        int count = 0;
+        while (true) {
+            if (isPerfectNumber(num) == 1) {
+                nth++;
+                if (nth == i || nth == j) {
+                    System.out.println("nth: " + nth + " num: " + num);
+                    sum += num;
+                    count++;
+                }
+            }
+            if (count == 2)
+                break;
+
+            num++;
+        }
+
+        return sum;
+    }
+
+    public int isPerfectNumber(int n) {
+        if (n <= 1)
+            return 0;
+
+        long sum = 0;
+        for (int i = 1; i < n; i++) {
+            if (n % i == 0) {
+                sum += i;
+            }
+        }
+
+        if (sum == n)
+            return 1;
+        return 0;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -568,6 +612,6 @@ public class MaharashiEntranceExam2 {
         // mee.printArray(mee.factorialSum(10));
         int[] a = new int[] { 4, 1, 1, 4, 2, 3, 4, 4, 1, 2, 4, 9, 3 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        System.out.println("largestPrimeFactor: " + mee.largestPrimeFactor(10));
+        System.out.println("henry: " + mee.henry(1, 2));
     }
 }
