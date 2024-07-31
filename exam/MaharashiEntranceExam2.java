@@ -540,6 +540,22 @@ public class MaharashiEntranceExam2 {
         return maxNum;
     }
 
+    // Question - 25: Write a function named largestPrimeFactor that will return the
+    // largest prime factor of a number. If the number is <= 1 it should return 0.
+    public int largestPrimeFactor(int n) {
+        if (n <= 1)
+            return 0;
+
+        int maxPrime = 0;
+        for (int i = 2; i < n; i++) {
+            if (n % i == 0 && isPrime(i) == 1) {
+                maxPrime = i;
+            }
+        }
+
+        return maxPrime;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -552,6 +568,6 @@ public class MaharashiEntranceExam2 {
         // mee.printArray(mee.factorialSum(10));
         int[] a = new int[] { 4, 1, 1, 4, 2, 3, 4, 4, 1, 2, 4, 9, 3 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        System.out.println("frequentlyOccure: " + mee.frequentlyOccure(a));
+        System.out.println("largestPrimeFactor: " + mee.largestPrimeFactor(10));
     }
 }
