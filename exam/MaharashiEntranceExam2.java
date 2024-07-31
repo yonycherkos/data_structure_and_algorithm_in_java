@@ -482,6 +482,39 @@ public class MaharashiEntranceExam2 {
         return 0;
     }
 
+    // Question - 23: Define an array to be trivalent if all its elements are one of
+    // three different values. For example, {22, 19, 10, 10, 19, 22, 22, 10} is
+    // trivalent because all elements are either 10, 22, or 19. However, the array
+    // {1, 2, 2, 2, 2, 2, 2} is not trivalent because it contains only two different
+    // value (1, 2)
+    public int isTrivalentArray(int[] arr) {
+        if (arr == null || arr.length == 0)
+            return 0;
+
+        int count = 0;
+        int[] result = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            boolean exist = false;
+            for (int j = 0; j < result.length; j++) {
+                if (arr[i] == result[j]) {
+                    exist = true;
+                    break;
+                }
+            }
+
+            if (!exist) {
+                result[count] = arr[i];
+                count++;
+            }
+        }
+
+        if (count == 3) {
+            return 1;
+        }
+
+        return 0;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -492,8 +525,8 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        int[] a = new int[] { 9, 0, 2, -5, 7 };
+        int[] a = new int[] { 22, 19, 10, 10, 19, 22, 22, 10 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        System.out.println("nextPerfectSquare: " + mee.nextPerfectSquare(36));
+        System.out.println("isTrivalentArray: " + mee.isTrivalentArray(a));
     }
 }
