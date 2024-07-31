@@ -407,10 +407,27 @@ public class MaharashiEntranceExam2 {
     // Question - 19: Check an array to be a Madhav array. A Madhav array has the
     // following property. a[0] = a[1] + a[2] = a[3] + a[4] + a[5] = a[6] + a[7] +
     // a[8] + a[9] = ... The length of a Madhav array must be n*(n+1)/2 for some n.
-    // {4, 2, 2, 1, 2, 1, 1, 1,1, 1}
+    // {4, 2, 2, 1, 2, 1, 1, 1, 1, 1}
     public int isMadhavArray(int[] arr) {
         if (arr == null || arr.length == 0)
             return 0;
+
+        int startIdx = 0;
+        int endIdx = 0;
+        int count = 1;
+        while (endIdx < arr.length) {
+            int sum = 0;
+            for (int i = startIdx; i <= endIdx; i++) {
+                sum += arr[i];
+            }
+
+            if (sum != arr[0])
+                return 0;
+
+            count++;
+            startIdx = endIdx + 1;
+            endIdx = endIdx + count;
+        }
 
         return 1;
     }
@@ -427,8 +444,8 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        int[] a = new int[] { 2, 3, 3, 7 };
+        int[] a = new int[] { 4, 2, 2, 1, 2, 1, 1, 1, 1, 1 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        mee.printArray(mee.factorialSum(10));
+        System.out.println("isMadhavArray: " + mee.isMadhavArray(a));
     }
 }
