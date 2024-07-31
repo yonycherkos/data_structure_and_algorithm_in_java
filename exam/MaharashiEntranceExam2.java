@@ -454,6 +454,23 @@ public class MaharashiEntranceExam2 {
         return count;
     }
 
+    // Question - 22: Write a function named nextPerfectSquare that returns the
+    // first perfect square that is greater that argument. A perfect square is an
+    // integer that is equal to some integer squared.
+    // eg. 16 = 4 * 4
+    public int nextPerfectSquare(int n) {
+        if (n < 0)
+            return 0;
+
+        int curr = n + 1;
+        while (true) {
+            if (isPerfectSquare(curr) == 1) {
+                return curr;
+            }
+            curr++;
+        }
+    }
+
     public int isPerfectSquare(int n) {
         int i = 0;
         while (i * i <= n) {
@@ -477,6 +494,6 @@ public class MaharashiEntranceExam2 {
         // mee.printArray(mee.factorialSum(10));
         int[] a = new int[] { 9, 0, 2, -5, 7 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        System.out.println("countSquarePairs: " + mee.countSquarePairs(a));
+        System.out.println("nextPerfectSquare: " + mee.nextPerfectSquare(36));
     }
 }
