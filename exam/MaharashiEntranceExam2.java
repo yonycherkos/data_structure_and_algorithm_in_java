@@ -432,7 +432,38 @@ public class MaharashiEntranceExam2 {
         return 1;
     }
 
-    // Question - 20:
+    // Question - 21: Define a square pair to be a the tuple <x, y> where x and y
+    // are positive, non-zero integers, x<y and x + y is a perfect square. A perfect
+    // square is an integer whose square root is also an integer, eg. 4, 9, 16 are
+    // perfect square but 3, 10, and 17 are not.
+    // eg. {9, 0, 2, -5, 7}
+    public int countSquarePairs(int[] arr) {
+        if (arr == null || arr.length == 0)
+            return 0;
+
+        int count = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if ((arr[i] > 0 && arr[j] > 0) && isPerfectSquare(arr[i] + arr[j]) == 1) {
+                    System.out.println("X: " + arr[i] + " Y: " + arr[j]);
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    public int isPerfectSquare(int n) {
+        int i = 0;
+        while (i * i <= n) {
+            if (i * i == n) {
+                return 1;
+            }
+            i++;
+        }
+        return 0;
+    }
 
     public void printArray(int[] arr) {
         for (int i : arr) {
@@ -444,8 +475,8 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        int[] a = new int[] { 4, 2, 2, 1, 2, 1, 1, 1, 1, 1 };
+        int[] a = new int[] { 9, 0, 2, -5, 7 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        System.out.println("isMadhavArray: " + mee.isMadhavArray(a));
+        System.out.println("countSquarePairs: " + mee.countSquarePairs(a));
     }
 }
