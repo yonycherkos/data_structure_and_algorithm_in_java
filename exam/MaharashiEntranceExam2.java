@@ -600,6 +600,50 @@ public class MaharashiEntranceExam2 {
         return 0;
     }
 
+    // Question - 27: The fundamental theorem of arithmetic states that every
+    // natural number greater than 1 can be written as a unique product of prime
+    // number. eg. 6936 = 2*2*2*3*17*17.
+    // Write a method named encodeNumber that encode a number n as an array that
+    // contains the prime numbers.
+    public int[] encodeNumber(int num) {
+        if (num <= 1)
+            return null;
+
+        int originalNum = num;
+
+        int factor = 2;
+        int product = 1;
+        int count = 0;
+        while (product < originalNum) {
+            if (isPrime(factor) == 1 && num % factor == 0) {
+                product *= factor;
+                num /= factor;
+                count++;
+            } else {
+                factor++;
+            }
+
+        }
+
+        int[] results = new int[count];
+        num = originalNum;
+        int idx = 0;
+        factor = 2;
+        product = 1;
+        while (product < originalNum) {
+            if (isPrime(factor) == 1 && num % factor == 0) {
+                product *= factor;
+                num /= factor;
+                results[idx] = factor;
+                idx++;
+            } else {
+                factor++;
+            }
+        }
+
+        return results;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -612,6 +656,6 @@ public class MaharashiEntranceExam2 {
         // mee.printArray(mee.factorialSum(10));
         int[] a = new int[] { 4, 1, 1, 4, 2, 3, 4, 4, 1, 2, 4, 9, 3 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        System.out.println("henry: " + mee.henry(1, 2));
+        mee.printArray(mee.encodeNumber(6936));
     }
 }
