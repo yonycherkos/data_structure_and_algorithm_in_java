@@ -644,6 +644,36 @@ public class MaharashiEntranceExam2 {
         return results;
     }
 
+    // Question - 28: define a number to be smallest or not.
+    // Not understood. Need to check again ??????
+    int smallest(int n) {
+        int mul = 1;
+        int count = 0;
+        while (true) {
+            int result = n * mul;
+            if (containsDigit2(result)) {
+                System.out.println("result: " + result);
+                count++;
+            } else {
+                break;
+            }
+            mul++;
+        }
+        return count;
+    }
+
+    public static boolean containsDigit2(int n) {
+        int num = n;
+        while (num > 0) {
+            int digit = num % 10;
+            if (digit == 2) {
+                return true;
+            }
+            num /= 10;
+        }
+        return false;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -656,6 +686,6 @@ public class MaharashiEntranceExam2 {
         // mee.printArray(mee.factorialSum(10));
         int[] a = new int[] { 4, 1, 1, 4, 2, 3, 4, 4, 1, 2, 4, 9, 3 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        mee.printArray(mee.encodeNumber(6936));
+        System.out.println("smallest: " + mee.smallest(624));
     }
 }
