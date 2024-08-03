@@ -719,6 +719,39 @@ public class MaharashiEntranceExam2 {
         return 1; // Sequentially bounded
     }
 
+    // Question - 31: defined an array to be railroad tie array
+    public int isRailroadTie(int[] arr) {
+        if (arr.length <= 1)
+            return 0;
+
+        int noZeroCount = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != 0) {
+                noZeroCount++;
+                if (i == 0) { // Check the first element
+                    if (arr[i + 1] == 0)
+                        return 0;
+                } else if (i == arr.length - 1) { // Check the last element
+                    if (arr[i - 1] == 0)
+                        return 0;
+                } else {
+                    // The element should have exactly one non-zero neighbors
+                    // The pattern must be either previous or next item should be non-zero
+                    if (!(arr[i - 1] == 0 && arr[i + 1] != 0 ||
+                            arr[i - 1] != 0 && arr[i + 1] == 0)) {
+                        return 0;
+                    }
+                }
+
+            }
+        }
+
+        if (noZeroCount == 0)
+            return 0;
+
+        return 1;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
