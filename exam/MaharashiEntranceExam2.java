@@ -674,6 +674,20 @@ public class MaharashiEntranceExam2 {
         return false;
     }
 
+    // Question - 29: define an array to be an up-count of an array
+    public int nUpCount(int[] arr, int n) {
+        int count = 0;
+        int sum = 0;
+        int prevSum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            prevSum = sum;
+            sum += arr[i];
+            if (prevSum <= n && sum > n)
+                count++;
+        }
+        return count;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -684,8 +698,8 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        int[] a = new int[] { 4, 1, 1, 4, 2, 3, 4, 4, 1, 2, 4, 9, 3 };
+        int[] a = new int[] { 2, 3, 1, -6, 8, -3, -1, 2 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        System.out.println("smallest: " + mee.smallest(624));
+        System.out.println("nUpCount: " + mee.nUpCount(a, 5));
     }
 }
