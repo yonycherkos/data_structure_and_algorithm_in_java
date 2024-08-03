@@ -688,6 +688,37 @@ public class MaharashiEntranceExam2 {
         return count;
     }
 
+    // Question - 30: defined an array to be sequentially bounded or not
+    public int isSequentiallyBounded(int[] a) {
+        if (a.length == 0) {
+            return 1; // Empty array is sequentially bounded
+        }
+
+        // Check for ascending order
+        for (int i = 1; i < a.length; i++) {
+            if (a[i] <= a[i - 1]) {
+                return 0; // Not in ascending order
+            }
+        }
+
+        // Check for occurrences of each value
+        for (int i = 0; i < a.length; i++) {
+            int count = 0;
+            for (int j = i; j < a.length; j++) {
+                if (a[i] != a[j]) {
+                    break; // If elements are different, no need to check further
+                }
+
+                count++;
+                if (count >= a[i]) {
+                    return 0; // Value occurs more than or equal to its value
+                }
+            }
+        }
+
+        return 1; // Sequentially bounded
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -698,8 +729,8 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        int[] a = new int[] { 2, 3, 1, -6, 8, -3, -1, 2 };
+        int[] a = new int[] { 2, 3, 4 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        System.out.println("nUpCount: " + mee.nUpCount(a, 5));
+        System.out.println("isSequentiallyBounded: " + mee.isSequentiallyBounded(a));
     }
 }
