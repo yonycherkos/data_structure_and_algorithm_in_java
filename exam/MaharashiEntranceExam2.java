@@ -752,6 +752,46 @@ public class MaharashiEntranceExam2 {
         return 1;
     }
 
+    // Question - 32: Defined an array to be Packed or not
+    // All values are positive.
+    // Each value n appears exactly n times.
+    // All occurrences of the same value are consecutive.
+    public int isPacked(int[] a) {
+        // Check if array is empty
+        if (a.length == 0) {
+            return 0;
+        }
+
+        // Check for positive values and consecutive occurrences
+        int count = 1;
+        int prev = a[0];
+        for (int i = 1; i < a.length; i++) {
+            if (a[i] <= 0) {
+                return 0; // Not all values are positive
+            }
+
+            if (a[i] == prev) {
+                count++;
+                if (count > a[i]) {
+                    return 0; // Value appears more than it should
+                }
+            } else {
+                if (count != prev) {
+                    return 0; // Previous value didn't appear the right number of times
+                }
+                prev = a[i];
+                count = 1;
+            }
+        }
+
+        // Check the last group of values
+        if (count != prev) {
+            return 0; // Last value didn't appear the right number of times
+        }
+
+        return 1; // Array is packed
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -762,8 +802,8 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        int[] a = new int[] { 2, 3, 4 };
+        int[] a = new int[] { 2, 2, 3, 3, 3 };
         int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        System.out.println("isSequentiallyBounded: " + mee.isSequentiallyBounded(a));
+        System.out.println("isPacked: " + mee.isPacked(a));
     }
 }
