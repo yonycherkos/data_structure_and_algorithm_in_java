@@ -756,6 +756,7 @@ public class MaharashiEntranceExam2 {
     // All values are positive.
     // Each value n appears exactly n times.
     // All occurrences of the same value are consecutive.
+    // Eg. {2, 2, 3, 3, 3, 4, 4, 4, 4} is packed
     public int isPacked(int[] a) {
         // Check if array is empty
         if (a.length == 0) {
@@ -792,6 +793,27 @@ public class MaharashiEntranceExam2 {
         return 1; // Array is packed
     }
 
+    // Question - 33: Defined an pattern matching that matches array of integers.
+    // Eg. {1, 1, 1, 2, 2, 1, 1, 3} matches {1, 2, 1, 3}
+    public int matchesPattern(int[] arr, int[] pattern) {
+        if (arr.length == 0 || pattern.length == 0) {
+            return 0; // Empty array or pattern cannot match
+        }
+
+        int i = 0, j = 0;
+        while (i < arr.length && j < pattern.length) {
+            if (arr[i] == pattern[j]) {
+                i++;
+                j++;
+            } else {
+                i++;
+            }
+        }
+
+        return (i == arr.length && j == pattern.length) ? 1 : 0; // All elements of the pattern have been
+                                                                 // matched
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -802,8 +824,8 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        int[] a = new int[] { 2, 2, 3, 3, 3 };
-        int[] p = new int[] { 2, 1, -1, -1, 2, 1 };
-        System.out.println("isPacked: " + mee.isPacked(a));
+        int[] a = new int[] { 1, 1, 1, 2, 2, 1, 1, 3 };
+        int[] p = new int[] { 1, 2, 1, 3 };
+        System.out.println("matchesPattern: " + mee.matchesPattern(a, p));
     }
 }
