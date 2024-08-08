@@ -905,6 +905,28 @@ public class MaharashiEntranceExam2 {
         return maxSum;
     }
 
+    // Question - 37: An array is defined to be odd-heavy if it contains at least
+    // one odd element and every element whose value is odd is greater than every
+    // even-valued element. So {11, 4, 9, 2, 8} is odd-heavy because the two odd
+    // elements (11 and 9) are greater than all the even elements. And {11, 4, 9, 2,
+    // 3, 10} is not odd-heavy because the even element 10 is greater than the odd
+    // element 9. Write a function called isOddHeavy that accepts an integer array
+    // and returns 1 if the array is odd-heavy; otherwise it returns 0.
+    public int isOddHeavy(int[] arr) {
+        boolean hasOdd = false;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] % 2 != 0) {
+                hasOdd = true;
+                for (int j = 0; j < arr.length; j++) {
+                    if (arr[j] % 2 == 0 && arr[j] > arr[i]) {
+                        return 0;
+                    }
+                }
+            }
+        }
+        return hasOdd ? 1 : 0;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
