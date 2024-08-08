@@ -927,6 +927,46 @@ public class MaharashiEntranceExam2 {
         return hasOdd ? 1 : 0;
     }
 
+    // Question - 38: Define an array to be a 121 array if all elements are either 1
+    // or 2 and it begins with one or more 1s followed by a one or more 2s and then
+    // ends with the same number of 1s that it begins with. Write a method named
+    // is121Array that returns 1 if its array argument is a 121 array, otherwise, it
+    // returns 0.
+    public int is121Array(int[] arr) {
+        int n = arr.length;
+
+        // Find and check initial 1s
+        int i = 0;
+        while (i < n && arr[i] == 1) {
+            i++;
+        }
+        if (i == 0 || i == n) {
+            return 0;
+        }
+
+        // Find and check the middle 2s
+        int count2s = 0;
+        while (i < n && arr[i] == 2) {
+            i++;
+            count2s++;
+        }
+        if (i == n || count2s == 0) {
+            return 0;
+        }
+
+        // Check the last 1st
+        int count1s = 0;
+        while (i < n && arr[i] == 1) {
+            i++;
+            count1s++;
+        }
+        if (i != n || count1s == 0) {
+            return 0;
+        }
+
+        return 1;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -937,8 +977,8 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        int[] a = new int[] { 2, 2, 3, 4, 4, 4, 5 };
+        int[] a = new int[] { 1, 1, 2, 2, 2, 1, 1 };
         int[] p = new int[] { 1, 2, 1, 3 };
-        System.out.println("isSequencedArray: " + mee.isSequencedArray(a, 2, 5));
+        System.out.println("is121Array: " + mee.is121Array(a));
     }
 }
