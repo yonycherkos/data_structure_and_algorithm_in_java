@@ -869,6 +869,28 @@ public class MaharashiEntranceExam2 {
         return (current == n && foundCurrent) ? 1 : 0;
     }
 
+    // Question - 35: The number 198 has the property that 198 = 11 + 99 + 88, i.e.,
+    // if each of its digits is concatenated twice and the summed, the result will
+    // be the original number. It turns out that 198 is the only number with this
+    // property. However, the property also applies to the following numbers: 2997,
+    // 3888, 4776, 5664, 6552, 7440, and 8328, and probably others. Write a function
+    // named checkConcatenatedSum that returns 1 if its argument is a Guthrie
+    // sequence, otherwise it returns 0.
+    public int checkConcatenatedSum(int n, int catlen) {
+        int sum = 0;
+        int temp = n;
+        while (temp > 0) {
+            int digit = temp % 10;
+            int concat = digit;
+            for (int i = 1; i < catlen; i++) {
+                concat = concat * 10 + digit;
+            }
+            sum += concat;
+            temp /= 10;
+        }
+        return (sum == n) ? 1 : 0;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
