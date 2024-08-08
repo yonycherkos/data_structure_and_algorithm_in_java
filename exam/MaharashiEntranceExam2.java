@@ -891,6 +891,20 @@ public class MaharashiEntranceExam2 {
         return (sum == n) ? 1 : 0;
     }
 
+    // Question - 36: Write a function named largestAdjacentSum that iterates
+    // through an array computing the sum of adjacent elements and returning the
+    // largest such sum. You may assume that the array has at least 2 elements.
+    public int largestAdjacentSum(int[] arr) {
+        int maxSum = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length - 1; i++) {
+            int currentSum = arr[i] + arr[i + 1];
+            if (currentSum > maxSum) {
+                maxSum = currentSum;
+            }
+        }
+        return maxSum;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
