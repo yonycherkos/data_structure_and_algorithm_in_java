@@ -645,6 +645,9 @@ public class MaharashiEntranceExam2 {
     }
 
     // Question - 28: define a number to be smallest or not.
+    // The number 124 has the property that it is the smallest number whose first
+    // three multiples contain the digit 2. Observe that 124*1 = 124, 124*2 = 248,
+    // 124*3 = 372 and that 124, 248, and 372 each contain the digit 2.
     // Not understood. Need to check again ??????
     int smallest(int n) {
         int mul = 1;
@@ -674,7 +677,10 @@ public class MaharashiEntranceExam2 {
         return false;
     }
 
-    // Question - 29: define an array to be an up-count of an array
+    // Question - 29: define an array to be an up-count of an array to be the number
+    // of times the partial sum goes from less than or equal to n greater than n
+    // during the calculation of the sum of the elements of the array.
+    // Eg. {2, 3, 1, -6, 8, -3, -1, 1} is an up-count array of n = 3.
     public int nUpCount(int[] arr, int n) {
         int count = 0;
         int sum = 0;
@@ -689,6 +695,11 @@ public class MaharashiEntranceExam2 {
     }
 
     // Question - 30: defined an array to be sequentially bounded or not
+    // An integer array is defined to be sequentially bounded if it is in ascending
+    // order and each value, n, in the array occurs less than n times in the array.
+    // So {2, 3, 3, 99, 99, 99, 99, 99} is sequentially bounded because it is in
+    // ascending order and the value 2 occurs the value less than 2 times, the value
+    // 3 occurs less than 3 times, and 99 occurs 5 times which is less than 99.
     public int isSequentiallyBounded(int[] a) {
         if (a.length == 0) {
             return 1; // Empty array is sequentially bounded
@@ -814,6 +825,50 @@ public class MaharashiEntranceExam2 {
                                                                  // matched
     }
 
+    // Question - 34: Define an m-n sequenced array to be an array that contains one
+    // or more occurences of all the integers between m and n inclusive.
+    // Furthermore, the array must be in ascending order and contain only those
+    // integers. For example, {2, 2, 3, 4, 4, 4, 5} is a 2-5 sequenced array. The
+    // array {2, 2, 3, 5, 5,5} is not a 2-5 sequenced array because it is missing a
+    // 4. The array {0, 2, 2, 3, 3} is not a 2-3 sequenced array because the 0 is
+    // out of range. And {1, 1, 3, 2, 2, 4} is not a 1-4 sequenced array because it
+    // is not in ascending order.
+
+    // 1. All numbers in the array should be between m and n.
+    // 2. The array should be in ascending order.
+    // 3. All numbers from m to n should appear at least once.
+    public int isSequencedArray(int[] arr, int m, int n) {
+        if (arr == null || arr.length == 0 || m > n) {
+            return 0;
+        }
+
+        int current = m;
+        boolean foundCurrent = false;
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] < m || arr[i] > n) {
+                return 0;
+            }
+
+            if (i > 0 && arr[i] < arr[i - 1]) {
+                return 0;
+            }
+
+            if (arr[i] == current) {
+                foundCurrent = true;
+            } else if (arr[i] > current) {
+                if (!foundCurrent) {
+                    return 0;
+                }
+                current++;
+                i--;
+                foundCurrent = false;
+            }
+        }
+
+        return (current == n && foundCurrent) ? 1 : 0;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -824,8 +879,8 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        int[] a = new int[] { 1, 1, 1, 2, 2, 1, 1, 3 };
+        int[] a = new int[] { 2, 2, 3, 4, 4, 4, 5 };
         int[] p = new int[] { 1, 2, 1, 3 };
-        System.out.println("matchesPattern: " + mee.matchesPattern(a, p));
+        System.out.println("isSequencedArray: " + mee.isSequencedArray(a, 2, 5));
     }
 }
