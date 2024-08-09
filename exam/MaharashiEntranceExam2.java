@@ -1019,6 +1019,40 @@ public class MaharashiEntranceExam2 {
         return 1;
     }
 
+    // Question - 40: Define a cluster in an integer array to be a maximum sequence
+    // of elements that are all the same value. For example, the array {3, 3, 3, 4,
+    // 4, 3, 2, 2, 2, 2, 4} has six clusters, {3, 3, 3}, {4, 4}, {3}, {2, 2, 2, 2}
+    // and {4}. A cluster-compression of an array replaces each cluster with the
+    // number that is repeated in the cluster. So, the cluster compression of the
+    // previous array would be {3, 4, 3, 2, 4}. The first cluster {3, 3, 3} is
+    // replaced by a single 3, and the second cluster {2, 2, 2, 2} is replaced by
+    // the number 2, and the number 4 is left unchanged. Write a function named
+    // clusterCompression that returns the cluster compression of the parameter
+    // array. The function signature is int[] clusterCompression(int[] a)
+    public int[] clusterCompression(int[] a) {
+        if (a == null || a.length == 0) {
+            return new int[0];
+        }
+
+        int n = a.length;
+        int[] result = new int[n];
+        int count = 1;
+        result[0] = a[0];
+        for (int i = 1; i < n; i++) {
+            if (a[i] != a[i - 1]) {
+                result[count] = a[i];
+                count++;
+            }
+        }
+
+        int[] output = new int[count];
+        for (int i = 0; i < count; i++) {
+            output[i] = result[i];
+        }
+
+        return output;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -1029,8 +1063,8 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        int[] a = new int[] { 1, 1, 2, 2, 2, 1, 1, 3 };
+        int[] a = new int[] { 3, 3, 3, 4, 4, 3, 2, 2, 2, 2, 4 };
         int[] p = new int[] { 1, 2, 1, 3 };
-        mee.printArray(mee.removeDuplicates(a));
+        mee.printArray(mee.clusterCompression(a));
     }
 }
