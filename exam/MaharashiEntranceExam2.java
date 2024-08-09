@@ -4,33 +4,36 @@ public class MaharashiEntranceExam2 {
     // Maharish Question and Answer in Amharic - 2
     // https://www.youtube.com/watch?v=vaqmoDMqmnY&list=PLHK18USBY-PfYp_NwHJe3gpsbbaGWxm8u
 
-    // Question - 1: Write a function to remove duplicates from a given array.
+    // Question - 1: Write a function to remove duplicates from an array of
+    // integers.
     public int[] removeDuplicates(int[] arr) {
-        if (arr == null || arr.length == 0)
+        if (arr == null || arr.length == 0) {
             return arr;
+        }
 
-        int count = 0;
-        int[] result = new int[arr.length];
-        for (int i = 0; i < arr.length; i++) {
-            boolean exists = false;
-            for (int j = 0; j < result.length; j++) {
-                if (arr[i] == result[j]) {
-                    exists = true;
+        int n = arr.length;
+        int[] uniqueArr = new int[n];
+        int uniqueCount = 0;
+        for (int i = 0; i < n; i++) {
+            boolean isDuplicate = false;
+            for (int j = 0; j < uniqueCount; j++) {
+                if (arr[i] == uniqueArr[j]) {
+                    isDuplicate = true;
                     break;
                 }
             }
-            if (!exists) {
-                result[i] = arr[i];
-                count++;
+            if (!isDuplicate) {
+                uniqueArr[uniqueCount] = arr[i];
+                uniqueCount++;
             }
         }
 
-        int[] output = new int[count];
-        for (int i = 0; i < count; i++) {
-            output[i] = result[i];
+        int[] result = new int[uniqueCount];
+        for (int i = 0; i < uniqueCount; i++) {
+            result[i] = uniqueArr[i];
         }
 
-        return output;
+        return result;
     }
 
     // Question - 2: Write a function to reverse an integer using numeric operators
@@ -967,6 +970,55 @@ public class MaharashiEntranceExam2 {
         return 1;
     }
 
+    // Question - 39: An array is defined to be minmax-disjoint if the following
+    // conditions hold:
+    // a. The minimum and maximum values of the array are not equal.
+    // b. The minimum and maximum values of the array are not adjacent to one
+    // another.
+    // c. The minimum value occurs exactly once in the array.
+    // d. The maximum value occurs exactly once in the array.
+    // Eg. the array {5, 4, 1, 3, 2} is minmax-disjoint.
+    // Write a function named isMinMaxDisjoint that returns 1 if its array argument
+    // is minmax-disjoint, otherwise it returns 0.
+    public int isMinMaxDisjoint(int[] arr) {
+        int n = arr.length;
+        if (n < 3) {
+            return 0;
+        }
+
+        int min = arr[0];
+        int max = arr[0];
+        int minIndex = 0;
+        int maxIndex = 0;
+        for (int i = 1; i < n; i++) {
+            if (arr[i] < min) {
+                min = arr[i];
+                minIndex = i;
+            }
+            if (arr[i] > max) {
+                max = arr[i];
+                maxIndex = i;
+            }
+        }
+
+        if (min == max || minIndex == maxIndex || minIndex == maxIndex - 1 || minIndex == maxIndex + 1) {
+            return 0;
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (arr[i] == min || arr[i] == max) {
+                if (i > 0 && arr[i - 1] == min || arr[i - 1] == max) {
+                    return 0;
+                }
+                if (i < n - 1 && arr[i + 1] == min || arr[i + 1] == max) {
+                    return 0;
+                }
+            }
+        }
+
+        return 1;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -977,8 +1029,8 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        int[] a = new int[] { 1, 1, 2, 2, 2, 1, 1 };
+        int[] a = new int[] { 1, 1, 2, 2, 2, 1, 1, 3 };
         int[] p = new int[] { 1, 2, 1, 3 };
-        System.out.println("is121Array: " + mee.is121Array(a));
+        mee.printArray(mee.removeDuplicates(a));
     }
 }
