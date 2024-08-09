@@ -1053,6 +1053,47 @@ public class MaharashiEntranceExam2 {
         return output;
     }
 
+    // Question - 41: Define a positive number to be isolated if none of the digits
+    // in its square are in its cube. For example 168 is n isolated number because
+    // 69*69 = 26569 and 69*69*69 = 4330747 and the quare does not contain any of
+    // the digits 0, 3, 4 and 7 which are the digits used in the cube. On the other
+    // hand 162 is not an isolated number because 162*162 = 26244 and 162*162*162 =
+    // 4251528 and the cube contains the digit 2 which is also in the square. Write
+    // a function named isIsolated that returns 1 if its integer argument is an
+    // isolated number, otherwise it returns 0.
+    public int isIsolated(long n) {
+        // The code efficiently checks for isolated numbers by using boolean arrays to
+        // track digit occurrences. It iterates through the digits of the square and
+        // cube of the input number, marking them as present in the square and cube
+        // arrays. If any digit is found in both arrays, it indicates that the number is
+        // not isolated, and the function returns 0. Otherwise, it returns 1, indicating
+        // that the number is isolated.
+        if (n <= 0) {
+            return -1; // Invalid input
+        }
+
+        long square = n * n;
+        long cube = n * n * n;
+
+        boolean[] squareDigits = new boolean[10];
+        boolean[] cubeDigits = new boolean[10];
+
+        while (square > 0) {
+            squareDigits[(int) (square % 10)] = true;
+            square /= 10;
+        }
+
+        while (cube > 0) {
+            if (squareDigits[(int) (cube % 10)]) {
+                return 0; // Not isolated
+            }
+            cubeDigits[(int) (cube % 10)] = true;
+            cube /= 10;
+        }
+
+        return 1; // Isolated
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
