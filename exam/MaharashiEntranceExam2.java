@@ -4,6 +4,12 @@ public class MaharashiEntranceExam2 {
     // Maharish Question and Answer in Amharic - 2
     // https://www.youtube.com/watch?v=vaqmoDMqmnY&list=PLHK18USBY-PfYp_NwHJe3gpsbbaGWxm8u
 
+    // Consider the following three points when solving MUM entrance exam.
+    // 1. To avoid time consuming and complex calculations, we should use the best
+    // techniques to solve a problem.
+    // 2. Our program should be easy to read and understand
+    // 3. Choose the best techniques for solving a problem
+
     // Question - 1: Write a function to remove duplicates from an array of
     // integers.
     public int[] removeDuplicates(int[] arr) {
@@ -1121,6 +1127,31 @@ public class MaharashiEntranceExam2 {
         return 1;
     }
 
+    // Question - 43: An array is called vanilla if all its elements are made up of
+    // the same digit. For example {1, 1, 11, 1111, 1111111} is a vanilla array
+    // because all its elements use only the digit 1. However, the array {11, 101,
+    // 1111, 11111} is not a vanilla array because its elements use the digits 0 and
+    // 1. Write a method called isVanilla that returns 1 if its argument is a
+    // vanilla array. Otherwise it returns 0.
+    public int isVanilla(int[] a) {
+        if (a.length == 0) {
+            return 1;
+        }
+
+        int digit = a[0] % 10;
+        for (int i = 1; i < a.length; i++) {
+            int num = a[i];
+            while (num > 0) {
+                if (num % 10 != digit) {
+                    return 0;
+                }
+                num /= 10;
+            }
+        }
+
+        return 1;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
@@ -1131,8 +1162,7 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        int[] a = new int[] { 3, 3, 3, 4, 4, 3, 2, 2, 2, 2, 4 };
-        int[] p = new int[] { 1, 2, 1, 3 };
-        mee.printArray(mee.clusterCompression(a));
+        int[] a = new int[] { 11, 111, 1111, 11111 };
+        System.out.println("isVanilla: " + mee.isVanilla(a));
     }
 }
