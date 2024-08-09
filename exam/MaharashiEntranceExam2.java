@@ -1094,6 +1094,33 @@ public class MaharashiEntranceExam2 {
         return 1; // Isolated
     }
 
+    // Question - 42: Define an array to be a sum-safe if none of its elements is
+    // equal to the sum of its elements. The array a = {5, -5, 0} is no sum-safe
+    // because the sum of its elements is 0 and [2] == 0. However, the array a = {5,
+    // -2, 1} is sum-safe because the sum of its elemtn is 4 and none of its
+    // elements equal 4.
+
+    // Write a function named isSumSafe that returns 1 if its array argument is
+    // sum-safe, otherwise it returns 0.
+    public int isSumSafe(int[] a) {
+        if (a == null || a.length == 0) {
+            return 0;
+        }
+
+        int sum = 0;
+        for (int i = 0; i < a.length; i++) {
+            sum += a[i];
+        }
+
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] == sum) {
+                return 0;
+            }
+        }
+
+        return 1;
+    }
+
     public void printArray(int[] arr) {
         for (int i : arr) {
             System.out.print(i + " ");
