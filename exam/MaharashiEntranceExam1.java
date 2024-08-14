@@ -8,15 +8,15 @@ public class MaharashiEntranceExam1 {
             return 0;
 
         int max = 1;
-        for (int i = 2; i < n; i++) {
-            if (n % i == 0 && i > max) {
-                max = i;
+        for (int num = 2; num < n; num++) {
+            if (n % num == 0 && num > max) {
+                max = num;
             }
         }
         return max;
     }
 
-    public int isidentical(int[] arr) {
+    public int isIdentical(int[] arr) {
         boolean isOdd = arr.length % 2 != 0;
         int mid = (int) (arr.length / 2);
         int midIdx = isOdd ? mid + 1 : mid;

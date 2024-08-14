@@ -248,13 +248,13 @@ public class MaharashiEntranceExam2 {
     // Question - 11: find two numbers with equal value with a factorial of ten
     // X! + Y! = 10!
     public int[] factorialSum(int n) {
-        long nfactorial10 = factorial(n);
+        long nfactorial = factorial(n);
 
         for (int x = 1; x <= n; x++) {
             long factorialX = factorial(x);
             for (int y = x; y <= n; y++) {
                 long factorialY = factorial(y);
-                if (factorialX + factorialY == nfactorial10) {
+                if (factorialX + factorialY == nfactorial) {
                     System.out.println("X = " + x + ", Y = " + y);
                     return new int[] { x, y };
                 }
@@ -275,18 +275,20 @@ public class MaharashiEntranceExam2 {
     // Question - 12: Write a method called convertToBase10 that converts its
     // <array, base> arguments to a base 10 number if the input is legal for the
     // specific base. if not, it returns 0;
+    // eg. {1, 0, 1, 1} base 2 = 11
     public int convertToBase10(int[] arr, int base) {
         if (arr == null || arr.length == 0)
             return 0;
 
-        int base10 = 0;
-        for (int i = 0; i < arr.length; i++) {
+        int n = arr.length;
+        int result = 0;
+        for (int i = 0; i < n; i++) {
             if (arr[i] >= base)
                 return 0;
-            base10 += arr[i] * Math.pow(base, arr.length - i - 1);
+            result += arr[i] * Math.pow(base, n - i - 1);
         }
 
-        return base10;
+        return result;
     }
 
     // Question - 13: A simple pattern match on the elements of an array "A" can be
@@ -333,13 +335,13 @@ public class MaharashiEntranceExam2 {
         if (n < 0)
             return 0;
 
-        int i = 0;
-        while (i * i <= n) {
-            if (i * i == n) {
-                System.out.println(i + "x" + i + "=" + n);
+        int num = 0;
+        while (num * num <= n) {
+            if (num * num == n) {
+                System.out.println(num + "x" + num + "=" + n);
                 return 1;
             }
-            i++;
+            num++;
         }
 
         return 0;
@@ -364,12 +366,13 @@ public class MaharashiEntranceExam2 {
     // eg. 10 = 1 + 2 + 3 + 4
     public int isStacked(int n) {
         int sum = 0;
-        for (int i = 1; i <= n; i++) {
-            sum += i;
-            if (sum == n)
+        int num = 1;
+        while (sum < n) {
+            sum += num;
+            if (num == n) {
                 return 1;
-            if (sum > n)
-                return 0;
+            }
+            num++;
         }
         return 0;
     }
@@ -418,24 +421,32 @@ public class MaharashiEntranceExam2 {
     // a[8] + a[9] = ... The length of a Madhav array must be n*(n+1)/2 for some n.
     // {4, 2, 2, 1, 2, 1, 1, 1, 1, 1}
     public int isMadhavArray(int[] arr) {
-        if (arr == null || arr.length == 0)
+        if (arr == null || arr.length == 0) {
             return 0;
+        }
 
-        int startIdx = 0;
-        int endIdx = 0;
-        int count = 1;
-        while (endIdx < arr.length) {
-            int sum = 0;
-            for (int i = startIdx; i <= endIdx; i++) {
-                sum += arr[i];
+        // Check if the length is of the form n*(n+1)/2
+        int n = 1;
+        while (n * (n + 1) / 2 < arr.length) {
+            n++;
+        }
+        if (n * (n + 1) / 2 != arr.length) {
+            return 0;
+        }
+
+        int index = 0;
+        int elementsInGroup = 1;
+
+        while (index < arr.length) {
+            int currentSum = 0;
+            for (int i = 0; i < elementsInGroup; i++) {
+                currentSum += arr[index];
+                index++;
             }
-
-            if (sum != arr[0])
+            if (currentSum != arr[0]) {
                 return 0;
-
-            count++;
-            startIdx = endIdx + 1;
-            endIdx = endIdx + count;
+            }
+            elementsInGroup++;
         }
 
         return 1;
@@ -463,6 +474,17 @@ public class MaharashiEntranceExam2 {
         return count;
     }
 
+    public int isPerfectSquare(int n) {
+        int i = 0;
+        while (i * i <= n) {
+            if (i * i == n) {
+                return 1;
+            }
+            i++;
+        }
+        return 0;
+    }
+
     // Question - 22: Write a function named nextPerfectSquare that returns the
     // first perfect square that is greater that argument. A perfect square is an
     // integer that is equal to some integer squared.
@@ -478,17 +500,6 @@ public class MaharashiEntranceExam2 {
             }
             curr++;
         }
-    }
-
-    public int isPerfectSquare(int n) {
-        int i = 0;
-        while (i * i <= n) {
-            if (i * i == n) {
-                return 1;
-            }
-            i++;
-        }
-        return 0;
     }
 
     // Question - 23: Define an array to be trivalent if all its elements are one of
@@ -525,7 +536,7 @@ public class MaharashiEntranceExam2 {
     }
 
     // Question - 24: Write a program which finds the most frequently occurring
-    // elemtn in an array. eg. {4, 1, 1, 4, 2, 3, 4, 4, 1, 2, 4, 9, 3} => 4
+    // element in an array. eg. {4, 1, 1, 4, 2, 3, 4, 4, 1, 2, 4, 9, 3} => 4
     public int frequentlyOccure(int[] arr) {
         if (arr == null || arr.length == 0)
             return 0;
@@ -533,7 +544,7 @@ public class MaharashiEntranceExam2 {
         int maxNum = arr[0];
         int maxCount = 0;
         for (int i = 0; i < arr.length; i++) {
-            int count = 0;
+            int count = 1;
             for (int j = i + 1; j < arr.length; j++) {
                 if (arr[i] == arr[j]) {
                     count++;
@@ -541,8 +552,8 @@ public class MaharashiEntranceExam2 {
             }
 
             if (count > maxCount) {
-                maxCount = count;
                 maxNum = arr[i];
+                maxCount = count;
             }
         }
 
@@ -556,7 +567,7 @@ public class MaharashiEntranceExam2 {
             return 0;
 
         int maxPrime = 0;
-        for (int i = 2; i < n; i++) {
+        for (int i = 2; i <= n / 2; i++) {
             if (n % i == 0 && isPrime(i) == 1) {
                 maxPrime = i;
             }
@@ -566,16 +577,16 @@ public class MaharashiEntranceExam2 {
     }
 
     // Question - 26: A perfect number is one that is the sum of its factors,
-    // excluding itself. The 1st perfect number is 6 because 6 = 1 + 2 + 3. the 2nd
-    // perfect number is 28 which is equals 1 + 2 + 4 + 7 + 14.
+    // The 1st perfect number is 6 because 6 = 1 + 2 + 3.
+    // the 2nd perfect number is 28 which is equals 1 + 2 + 4 + 7 + 14.
     // Write a method named henry that takes two integer arguments i and j and
     // return the sum of the ith and jth perfect numbers.
     public int henry(int i, int j) {
-        int num = 0;
+        int num = 2;
         int nth = 0;
         int sum = 0;
         int count = 0;
-        while (true) {
+        while (count < 2) {
             if (isPerfectNumber(num) == 1) {
                 nth++;
                 if (nth == i || nth == j) {
@@ -584,8 +595,6 @@ public class MaharashiEntranceExam2 {
                     count++;
                 }
             }
-            if (count == 2)
-                break;
 
             num++;
         }
@@ -598,7 +607,7 @@ public class MaharashiEntranceExam2 {
             return 0;
 
         long sum = 0;
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; i <= n / 2; i++) {
             if (n % i == 0) {
                 sum += i;
             }
@@ -631,7 +640,6 @@ public class MaharashiEntranceExam2 {
             } else {
                 factor++;
             }
-
         }
 
         int[] results = new int[count];
@@ -657,28 +665,28 @@ public class MaharashiEntranceExam2 {
     // The number 124 has the property that it is the smallest number whose first
     // three multiples contain the digit 2. Observe that 124*1 = 124, 124*2 = 248,
     // 124*3 = 372 and that 124, 248, and 372 each contain the digit 2.
-    // Not understood. Need to check again ??????
-    int smallest(int n) {
-        int mul = 1;
-        int count = 0;
+    // It is possible to generalize this property to be the smallest number whose
+    // first n multiples each contain the digit 2.
+    public int smallest(int n) {
+        int num = 1;
         while (true) {
-            int result = n * mul;
-            if (containsDigit2(result)) {
-                System.out.println("result: " + result);
-                count++;
-            } else {
-                break;
+            boolean allContain2 = true;
+            for (int i = 1; i <= n; i++) {
+                if (!containsDigit2(num * i)) {
+                    allContain2 = false;
+                    break;
+                }
             }
-            mul++;
+            if (allContain2) {
+                return num;
+            }
+            num++;
         }
-        return count;
     }
 
-    public static boolean containsDigit2(int n) {
-        int num = n;
+    private boolean containsDigit2(int num) {
         while (num > 0) {
-            int digit = num % 10;
-            if (digit == 2) {
+            if (num % 10 == 2) {
                 return true;
             }
             num /= 10;
@@ -691,19 +699,21 @@ public class MaharashiEntranceExam2 {
     // during the calculation of the sum of the elements of the array.
     // Eg. {2, 3, 1, -6, 8, -3, -1, 1} is an up-count array of n = 3.
     public int nUpCount(int[] arr, int n) {
-        int count = 0;
         int sum = 0;
         int prevSum = 0;
+        int count = 0;
+
         for (int i = 0; i < arr.length; i++) {
             prevSum = sum;
             sum += arr[i];
             if (prevSum <= n && sum > n)
                 count++;
         }
+
         return count;
     }
 
-    // Question - 30: defined an array to be sequentially bounded or not
+    // Question - 30: defined an array to be sequentially bounded or not.
     // An integer array is defined to be sequentially bounded if it is in ascending
     // order and each value, n, in the array occurs less than n times in the array.
     // So {2, 3, 3, 99, 99, 99, 99, 99} is sequentially bounded because it is in
@@ -723,16 +733,16 @@ public class MaharashiEntranceExam2 {
 
         // Check for occurrences of each value
         for (int i = 0; i < a.length; i++) {
-            int count = 0;
+            int count = 1;
             for (int j = i; j < a.length; j++) {
                 if (a[i] != a[j]) {
                     break; // If elements are different, no need to check further
                 }
 
-                count++;
                 if (count >= a[i]) {
                     return 0; // Value occurs more than or equal to its value
                 }
+                count++;
             }
         }
 
@@ -740,98 +750,97 @@ public class MaharashiEntranceExam2 {
     }
 
     // Question - 31: defined an array to be railroad tie array
+    // a. The array contains at least one non-zero element
+    // b. Every non-zero element has exactly one non-zero neighbor
+    // c. Every zero element has two non-zero neighbors
+    // eg. {1, 2, 0, 3, -18, 0, 2, 2} is a railroad tie array
+    // eg. {1, 2, 3, 0, 2, 2} is not a railroad tie array
     public int isRailroadTie(int[] arr) {
-        if (arr.length <= 1)
+        if (arr.length < 2)
             return 0;
 
-        int noZeroCount = 0;
+        boolean hasNonZero = false;
+
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] != 0) {
-                noZeroCount++;
-                if (i == 0) { // Check the first element
-                    if (arr[i + 1] == 0)
-                        return 0;
-                } else if (i == arr.length - 1) { // Check the last element
-                    if (arr[i - 1] == 0)
-                        return 0;
-                } else {
-                    // The element should have exactly one non-zero neighbors
-                    // The pattern must be either previous or next item should be non-zero
-                    if (!(arr[i - 1] == 0 && arr[i + 1] != 0 ||
-                            arr[i - 1] != 0 && arr[i + 1] == 0)) {
-                        return 0;
-                    }
-                }
-
+                hasNonZero = true;
+                int nonZeroNeighbors = 0;
+                if (i > 0 && arr[i - 1] != 0)
+                    nonZeroNeighbors++;
+                if (i < arr.length - 1 && arr[i + 1] != 0)
+                    nonZeroNeighbors++;
+                if (nonZeroNeighbors != 1)
+                    return 0;
+            } else {
+                if (i == 0 || i == arr.length - 1)
+                    return 0;
+                if (arr[i - 1] == 0 || arr[i + 1] == 0)
+                    return 0;
             }
         }
 
-        if (noZeroCount == 0)
+        return hasNonZero ? 1 : 0;
+    }
+
+    // Question - 32: Defined an array to be Packed or not
+    // - All values are positive.
+    // - Each value n appears exactly n times.
+    // - All occurrences of the same value are consecutive.
+    // Eg. {2, 2, 3, 3, 3, 4, 4, 4, 4} is packed
+    public int isPacked(int[] arr) {
+        if (arr == null || arr.length == 0) {
             return 0;
+        }
+
+        int i = 0;
+        while (i < arr.length) {
+            // All values are positive.
+            int value = arr[i];
+            if (value <= 0) {
+                return 0;
+            }
+
+            // Each value n appears exactly n times.
+            int count = 0;
+            while (i < arr.length && arr[i] == value) {
+                count++;
+                i++;
+            }
+
+            if (count != value) {
+                return 0;
+            }
+
+            // All occurrences of the same value are consecutive.
+            for (int j = i; j < arr.length; j++) {
+                if (arr[j] == value) {
+                    return 0;
+                }
+            }
+        }
 
         return 1;
     }
 
-    // Question - 32: Defined an array to be Packed or not
-    // All values are positive.
-    // Each value n appears exactly n times.
-    // All occurrences of the same value are consecutive.
-    // Eg. {2, 2, 3, 3, 3, 4, 4, 4, 4} is packed
-    public int isPacked(int[] a) {
-        // Check if array is empty
-        if (a.length == 0) {
-            return 0;
-        }
-
-        // Check for positive values and consecutive occurrences
-        int count = 1;
-        int prev = a[0];
-        for (int i = 1; i < a.length; i++) {
-            if (a[i] <= 0) {
-                return 0; // Not all values are positive
-            }
-
-            if (a[i] == prev) {
-                count++;
-                if (count > a[i]) {
-                    return 0; // Value appears more than it should
-                }
-            } else {
-                if (count != prev) {
-                    return 0; // Previous value didn't appear the right number of times
-                }
-                prev = a[i];
-                count = 1;
-            }
-        }
-
-        // Check the last group of values
-        if (count != prev) {
-            return 0; // Last value didn't appear the right number of times
-        }
-
-        return 1; // Array is packed
-    }
-
     // Question - 33: Defined an pattern matching that matches array of integers.
     // Eg. {1, 1, 1, 2, 2, 1, 1, 3} matches {1, 2, 1, 3}
-    public int matchesPattern(int[] arr, int[] pattern) {
-        if (arr.length == 0 || pattern.length == 0) {
-            return 0; // Empty array or pattern cannot match
-        }
+    public int matchesPattern(int[] a, int[] pattern) {
+        int i = 0;
+        int j = 0;
 
-        int i = 0, j = 0;
-        while (i < arr.length && j < pattern.length) {
-            if (arr[i] == pattern[j]) {
-                i++;
-                j++;
-            } else {
+        while (i < a.length && j < pattern.length) {
+            if (a[i] != pattern[j]) {
+                return 0;
+            }
+
+            while (i < a.length && a[i] == pattern[j]) {
                 i++;
             }
+
+            j++;
         }
 
-        return (i == arr.length && j == pattern.length) ? 1 : 0; // All elements of the pattern have been
-                                                                 // matched
+        return (i == a.length && j == pattern.length) ? 1 : 0;
     }
 
     // Question - 34: Define an m-n sequenced array to be an array that contains one
@@ -846,13 +855,13 @@ public class MaharashiEntranceExam2 {
     // 1. All numbers in the array should be between m and n.
     // 2. The array should be in ascending order.
     // 3. All numbers from m to n should appear at least once.
+
     public int isSequencedArray(int[] arr, int m, int n) {
         if (arr == null || arr.length == 0 || m > n) {
             return 0;
         }
 
         int current = m;
-        boolean foundCurrent = false;
 
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] < m || arr[i] > n) {
@@ -863,19 +872,12 @@ public class MaharashiEntranceExam2 {
                 return 0;
             }
 
-            if (arr[i] == current) {
-                foundCurrent = true;
-            } else if (arr[i] > current) {
-                if (!foundCurrent) {
-                    return 0;
-                }
+            if (arr[i] == current && (i == arr.length - 1 || arr[i] != arr[i + 1])) {
                 current++;
-                i--;
-                foundCurrent = false;
             }
         }
 
-        return (current == n && foundCurrent) ? 1 : 0;
+        return (current > n) ? 1 : 0;
     }
 
     // Question - 35: The number 198 has the property that 198 = 11 + 99 + 88, i.e.,
@@ -943,37 +945,38 @@ public class MaharashiEntranceExam2 {
     // returns 0.
     public int is121Array(int[] arr) {
         int n = arr.length;
+        int countStartOnes = 0;
+        int index = 0;
 
-        // Find and check initial 1s
-        int i = 0;
-        while (i < n && arr[i] == 1) {
-            i++;
+        // Count starting 1s
+        while (index < n && arr[index] == 1) {
+            countStartOnes++;
+            index++;
         }
-        if (i == 0 || i == n) {
+
+        // Check for at least one 2
+        if (index == n || arr[index] != 2) {
             return 0;
         }
 
-        // Find and check the middle 2s
-        int count2s = 0;
-        while (i < n && arr[i] == 2) {
-            i++;
-            count2s++;
-        }
-        if (i == n || count2s == 0) {
-            return 0;
+        // Skip 2s
+        while (index < n && arr[index] == 2) {
+            index++;
         }
 
-        // Check the last 1st
-        int count1s = 0;
-        while (i < n && arr[i] == 1) {
-            i++;
-            count1s++;
-        }
-        if (i != n || count1s == 0) {
-            return 0;
+        // Count ending 1s
+        int countEndOnes = 0;
+        while (index < n && arr[index] == 1) {
+            countEndOnes++;
+            index++;
         }
 
-        return 1;
+        // Check if all elements are processed and counts match
+        if (index == n && countStartOnes == countEndOnes && countStartOnes > 0) {
+            return 1;
+        }
+
+        return 0;
     }
 
     // Question - 39: An array is defined to be minmax-disjoint if the following
@@ -987,16 +990,18 @@ public class MaharashiEntranceExam2 {
     // Write a function named isMinMaxDisjoint that returns 1 if its array argument
     // is minmax-disjoint, otherwise it returns 0.
     public int isMinMaxDisjoint(int[] arr) {
-        int n = arr.length;
-        if (n < 3) {
+        if (arr == null || arr.length < 2) {
             return 0;
         }
 
-        int min = arr[0];
-        int max = arr[0];
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
         int minIndex = 0;
         int maxIndex = 0;
-        for (int i = 1; i < n; i++) {
+        int minCount = 0;
+        int maxCount = 0;
+
+        for (int i = 0; i < arr.length; i++) {
             if (arr[i] < min) {
                 min = arr[i];
                 minIndex = i;
@@ -1007,19 +1012,20 @@ public class MaharashiEntranceExam2 {
             }
         }
 
-        if (min == max || minIndex == maxIndex || minIndex == maxIndex - 1 || minIndex == maxIndex + 1) {
-            return 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == min) {
+                minCount++;
+            }
+            if (arr[i] == max) {
+                maxCount++;
+            }
         }
 
-        for (int i = 0; i < n; i++) {
-            if (arr[i] == min || arr[i] == max) {
-                if (i > 0 && arr[i - 1] == min || arr[i - 1] == max) {
-                    return 0;
-                }
-                if (i < n - 1 && arr[i + 1] == min || arr[i + 1] == max) {
-                    return 0;
-                }
-            }
+        if (min == max ||
+                Math.abs(minIndex - maxIndex) == 1 ||
+                minCount != 1 ||
+                maxCount != 1) {
+            return 0;
         }
 
         return 1;
@@ -1040,23 +1046,26 @@ public class MaharashiEntranceExam2 {
             return new int[0];
         }
 
-        int n = a.length;
-        int[] result = new int[n];
-        int count = 1;
-        result[0] = a[0];
-        for (int i = 1; i < n; i++) {
-            if (a[i] != a[i - 1]) {
-                result[count] = a[i];
-                count++;
+        int[] result = new int[a.length];
+        int resultIndex = 0;
+        int currentValue = a[0];
+        result[resultIndex] = currentValue;
+        resultIndex++;
+
+        for (int i = 1; i < a.length; i++) {
+            if (a[i] != currentValue) {
+                currentValue = a[i];
+                result[resultIndex] = currentValue;
+                resultIndex++;
             }
         }
 
-        int[] output = new int[count];
-        for (int i = 0; i < count; i++) {
-            output[i] = result[i];
+        int[] compressedArray = new int[resultIndex];
+        for (int i = 0; i < resultIndex; i++) {
+            compressedArray[i] = result[i];
         }
 
-        return output;
+        return compressedArray;
     }
 
     // Question - 41: Define a positive number to be isolated if none of the digits
@@ -1139,7 +1148,7 @@ public class MaharashiEntranceExam2 {
         }
 
         int digit = a[0] % 10;
-        for (int i = 1; i < a.length; i++) {
+        for (int i = 0; i < a.length; i++) {
             int num = a[i];
             while (num > 0) {
                 if (num % 10 != digit) {
@@ -1162,7 +1171,7 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        int[] a = new int[] { 11, 111, 1111, 11111 };
-        System.out.println("isVanilla: " + mee.isVanilla(a));
+        int[] a = new int[] { 3, 3, 3, 4, 4, 3, 2, 2, 2, 2, 4 };
+        mee.printArray(mee.clusterCompression(a));
     }
 }
