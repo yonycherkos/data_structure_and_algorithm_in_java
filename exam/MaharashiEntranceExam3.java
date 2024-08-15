@@ -13,45 +13,58 @@ public class MaharashiEntranceExam3 {
     }
 
     public int isMagicArray(int[] arr) {
-        int primeSum = 0;
-        for (int i : arr) {
-            if (isPrime(i)) {
-                primeSum += i;
-            }
+        if (arr == null || arr.length == 0) {
+            return 0;
         }
-        return primeSum == arr[0] ? 1 : 0;
+
+        int sum = 0;
+        for (int i = 1; i < arr.length; i++) {
+            sum += arr[i];
+        }
+
+        return (arr[0] == sum) ? 1 : 0;
     }
 
     public int isComplete(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return 0;
+        }
+
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
-        int count = 0;
-        for (int i : arr) {
-            if (i % 2 == 0) {
-                if (i < min)
-                    min = i;
-                if (i > max)
-                    max = i;
-                count++;
+        boolean hasEven = false;
+
+        // Find min and max even numbers
+        for (int num : arr) {
+            if (num % 2 == 0) {
+                hasEven = true;
+                if (num < min) {
+                    min = num;
+                }
+                if (num > max) {
+                    max = num;
+                }
             }
         }
-        if (count == 0)
-            return 0;
-        System.out.println("min: " + min + " max: " + max);
 
-        if (min == max)
+        // Check if there are even numbers and min != max
+        if (!hasEven || min == max) {
             return 0;
+        }
 
-        for (int i = min + 1; i < max; i++) {
-            boolean exist = false;
-            for (int j = 0; j < arr.length; j++) {
-                if (arr[i] == arr[j]) {
-                    exist = true;
+        // Check if all numbers between min and max are in the array
+        for (int num = min + 1; num < max; num++) {
+            boolean found = false;
+            for (int i = 0; i < arr.length; i++) {
+                if (num == arr[i]) {
+                    found = true;
                     break;
                 }
             }
-            if (!exist)
+
+            if (!found) {
                 return 0;
+            }
         }
 
         return 1;
@@ -73,9 +86,9 @@ public class MaharashiEntranceExam3 {
             return 0;
 
         for (int i = 2; i <= n / 2; i++) {
-            if (isPrime(i)) {
+            if (n % i == 0 && isPrime(i)) {
                 for (int j = i; j <= n / 2; j++) {
-                    if (isPrime(j) && i * j == n) {
+                    if (n % j == 0 & isPrime(j) && i * j == n) {
                         System.out.println("i: " + i + ", j: " + j);
                         return 1;
                     }
@@ -113,10 +126,12 @@ public class MaharashiEntranceExam3 {
 
     // Questions - 3
     public int hasKSmallFactors(int k, int n) {
-        for (int i = 2; i < k; i++) {
-            for (int j = i; j < k; j++) {
-                if (i * j == n)
-                    return 1;
+        for (int i = 1; i < k; i++) {
+            if (n % i == 0) {
+                for (int j = i; j < k; j++) {
+                    if (n % j == 0 && i * j == n)
+                        return 1;
+                }
             }
         }
         return 0;
@@ -124,33 +139,41 @@ public class MaharashiEntranceExam3 {
 
     public int[] fill(int[] arr, int k, int n) {
         int[] arr2 = new int[n];
-        int block = 0;
-        for (int i = 0; i < n; i++) {
-            arr2[i] = arr[i - block * k];
-            if ((i + 1) % k == 0)
-                block++;
+
+        int idx = 0;
+        for (int i = 0; i < k; i++) {
+            if (idx < k) {
+                arr2[i] = arr[idx];
+            } else if (idx == k) {
+                idx = 0;
+                arr2[i] = arr[idx];
+            }
+            idx++;
         }
+
         return arr2;
     }
 
-    public int isHallow(int[] arr) {
+    public int isHollow(int[] arr) {
         int leftCount = 0;
+        int zeroCount = 0;
         int rightCount = 0;
-        int midCount = 0;
-        for (int i : arr) {
-            if (i == 0) {
-                if (leftCount > 0 && rightCount == 0)
-                    midCount++;
-            } else {
-                if (midCount == 0) {
-                    leftCount++;
-                } else {
-                    rightCount++;
-                }
+        boolean zeroStarted = false;
+        boolean zeroEnded = false;
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != 0 && !zeroStarted) {
+                leftCount++;
+            } else if (arr[i] == 0) {
+                zeroStarted = true;
+                zeroCount++;
+            } else if (arr[i] != 0 && zeroStarted) {
+                zeroEnded = true;
+                rightCount++;
             }
         }
-        System.out.println("LeftCount: " + leftCount + ", MidCount: " + midCount + ", RightCount: " + rightCount);
-        return (midCount >= 3 && leftCount == rightCount) ? 1 : 0;
+
+        return (zeroCount >= 3 && leftCount == rightCount && zeroEnded) ? 1 : 0;
     }
 
     // Questions - 4
@@ -162,8 +185,8 @@ public class MaharashiEntranceExam3 {
                     if (n % j == 0) {
                         if (min > j - i) {
                             min = j - i;
-                            break;
                         }
+                        break;
                     }
                 }
             }
@@ -173,7 +196,10 @@ public class MaharashiEntranceExam3 {
 
     public int isWave(int[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
-            if ((arr[i] % 2 == 0 && arr[i + 1] % 2 == 0) || (arr[i] % 2 != 0 && arr[i + 1] % 2 != 0)) {
+            if (arr[i] % 2 == 0 && arr[i + 1] % 2 == 0) {
+                return 0;
+            }
+            if (arr[i] % 2 != 0 && arr[i + 1] % 2 != 0) {
                 return 0;
             }
         }
@@ -182,22 +208,26 @@ public class MaharashiEntranceExam3 {
 
     public int isBean(int[] arr) {
         boolean has9 = false;
-        boolean has7 = false;
         boolean has13 = false;
-        boolean has17 = false;
+        boolean has7 = false;
+        boolean has16 = false;
 
-        for (int i : arr) {
-            if (i == 9)
+        for (int num : arr) {
+            if (num == 9)
                 has9 = true;
-            else if (i == 7)
-                has7 = true;
-            else if (i == 13)
+            else if (num == 13)
                 has13 = true;
-            else if (i == 17)
-                has17 = true;
+            else if (num == 7)
+                has7 = true;
+            else if (num == 16)
+                has16 = true;
         }
 
-        return (has9 ? has13 : false) && (has7 ? !has17 : false) ? 1 : 0;
+        if ((has9 && !has13) || (has7 && has16)) {
+            return 0;
+        }
+
+        return 1;
     }
 
     // Questions - 5
@@ -220,6 +250,9 @@ public class MaharashiEntranceExam3 {
         return 0;
     }
 
+    // When compare current element and next element, you should iterate between
+    // i to arr.length - 1.
+
     public int isMeeraArray(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr.length; j++) {
@@ -230,9 +263,8 @@ public class MaharashiEntranceExam3 {
         return 1;
     }
 
-    // If the question says all the value should saticify a conding, find for where
-    // it not satifify
-    // If it says atleast one statify, find just one.
+    // If the question says all the value should saticify a condition, find for
+    // where it not satifify If it says atleast one statify, find just one.
 
     // Questions - 6
     public int isMeeraNumber(int n) {
@@ -245,27 +277,30 @@ public class MaharashiEntranceExam3 {
     }
 
     public int isBunkerArray2(int[] arr) {
-        boolean has1 = false;
+        boolean hasOne = false;
         boolean hasPrime = false;
-        for (int i : arr) {
-            if (i == 1)
-                has1 = true;
-            if (isPrime(i))
+
+        for (int num : arr) {
+            if (num == 1)
+                hasOne = true;
+            if (isPrime(num))
                 hasPrime = true;
+            if (hasOne && hasPrime)
+                return 1;
         }
-        return has1 && hasPrime ? 1 : 0;
+        return 0;
     }
 
     public int isNiceArray(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
-            boolean exist = false;
+            boolean found = false;
             for (int j = 0; j < arr.length; j++) {
                 if (arr[i] - 1 == arr[j] || arr[i] + 1 == arr[j]) {
-                    exist = true;
+                    found = true;
                     break;
                 }
             }
-            if (!exist)
+            if (!found)
                 return 0;
         }
         return 1;
@@ -274,16 +309,16 @@ public class MaharashiEntranceExam3 {
     // Questions - 7
     public int isContinuousFactored(int n) {
         for (int i = 2; i <= n / 2; i++) {
-            if (n % 2 == 0) {
+            if (n % i == 0) {
                 int product = i;
                 for (int j = i + 1; j <= n / 2; j++) {
-                    if (n % j != 0) {
-                        break;
-                    } else {
+                    if (n % j == 0) {
                         product *= j;
                         if (product == n) {
                             return 1;
                         }
+                    } else {
+                        break;
                     }
                 }
             }
@@ -294,47 +329,40 @@ public class MaharashiEntranceExam3 {
     public int isTwin(int[] arr) {
         for (int num1 : arr) {
             if (isPrime(num1)) {
-                boolean foundTwin = false;
                 for (int num2 : arr) {
-                    if (num2 == num1 - 2 || num2 == num1 + 2) {
-                        if (isPrime(num2)) {
-                            foundTwin = true;
-                            break;
+                    if (isPrime(num2)) {
+                        if (num1 - num2 == 2 || num2 - num1 == 2) {
+                            return 1;
                         }
                     }
                 }
-                if (!foundTwin)
-                    return 0;
             }
         }
         return 1;
     }
 
     public int isSetEqual(int[] a, int[] b) {
-        if (a.length != b.length)
-            return 0;
-
-        for (int elementInA : a) {
-            boolean foundInB = false;
-            for (int elementInB : b) {
-                if (elementInB == elementInA) {
-                    foundInB = true;
+        for (int num1 : a) {
+            boolean found = false;
+            for (int num2 : b) {
+                if (num1 == num2) {
+                    found = true;
                     break;
                 }
             }
-            if (!foundInB)
+            if (!found)
                 return 0;
         }
 
-        for (int elementInB : a) {
-            boolean foundInA = false;
-            for (int elementInA : b) {
-                if (elementInA == elementInB) {
-                    foundInA = true;
+        for (int num1 : b) {
+            boolean found = false;
+            for (int num2 : a) {
+                if (num1 == num2) {
+                    found = true;
                     break;
                 }
             }
-            if (!foundInA)
+            if (!found)
                 return 0;
         }
 
@@ -364,16 +392,16 @@ public class MaharashiEntranceExam3 {
             }
         }
 
-        for (int num1 = 2; num1 < maxEven; num1++) {
-            if (num1 % 2 == 0) {
-                boolean found = false;
-                for (int num2 : a) {
-                    if (num1 == num2)
-                        found = true;
+        for (int num1 = 2; num1 < maxEven; num1 += 2) {
+            boolean found = false;
+            for (int num2 : a) {
+                if (num1 == num2) {
+                    found = true;
+                    break;
                 }
-                if (!found)
-                    return 0;
             }
+            if (!found)
+                return 0;
         }
 
         return 1;
@@ -383,16 +411,20 @@ public class MaharashiEntranceExam3 {
     public int factorEqual(int n, int m) {
         int countNFactors = 0;
         int countMFactors = 0;
-        for (int num = 2; num <= n; num++) {
+
+        for (int num = 2; num < n; num++) {
             if (n % num == 0)
                 countNFactors++;
         }
-        for (int num = 2; num <= m; num++) {
+        for (int num = 2; num < m; num++) {
             if (n % num == 0)
                 countMFactors++;
         }
 
-        return countNFactors == countMFactors ? 1 : 0;
+        if (countNFactors == countMFactors)
+            return 1;
+
+        return 0;
     }
 
     public int isMeeraArray2(int[] a) {
@@ -402,7 +434,11 @@ public class MaharashiEntranceExam3 {
                 return 0;
             sum += a[i];
         }
-        return sum == 0 ? 1 : 0;
+
+        if (sum == 0)
+            return 1;
+
+        return 0;
     }
 
     public int isTripleArray(int[] arr) {
@@ -418,28 +454,27 @@ public class MaharashiEntranceExam3 {
         return 1;
     }
 
+    // Questions - 10
     public int isFibonacci(int n) {
         if (n < 1)
             return 0;
 
         int a = 0, b = 1, c;
-        System.out.println(b);
         while (b <= n) {
             c = a + b;
             if (c == n)
                 return 1;
             a = b;
             b = c;
-            System.out.println(b);
         }
 
         return 0;
     }
 
-    // Questions - 10
     public int isMeeraArray3(int[] a) {
         boolean hasZero = false;
         boolean hasPrime = false;
+
         for (int num : a) {
             if (num == 0)
                 hasZero = true;
@@ -448,7 +483,11 @@ public class MaharashiEntranceExam3 {
             if (hasPrime && hasZero)
                 return 1;
         }
-        return (hasZero && hasPrime) || (!hasZero && !hasPrime) ? 1 : 0;
+
+        if ((hasZero && hasPrime) || (!hasZero && !hasPrime))
+            return 1;
+
+        return 0;
     }
 
     public int isBeenArray(int[] a) {
@@ -495,14 +534,14 @@ public class MaharashiEntranceExam3 {
 
     public int isBeanArray(int[] a) {
         for (int num1 : a) {
-            boolean hasElement = false;
+            boolean found = false;
             for (int num2 : a) {
                 if (2 * num1 == num2 || 2 * num1 + 1 == num2 || num1 / 2 == num2) {
-                    hasElement = true;
+                    found = true;
                     break;
                 }
             }
-            if (!hasElement)
+            if (!found)
                 return 0;
         }
         return 1;
@@ -510,12 +549,11 @@ public class MaharashiEntranceExam3 {
 
     // Questions - 12
     public int isBunker(int n) {
-        int k = 1, kth = 1;
-        while (kth <= n) {
+        int kth = 1;
+        for (int k = 1; k < n; k++) {
+            kth += k;
             if (kth == n)
                 return 1;
-            kth += k;
-            k++;
         }
         return 0;
     }
@@ -550,7 +588,11 @@ public class MaharashiEntranceExam3 {
             if (num == 11)
                 has11 = true;
         }
-        return ((has9 && has13) || !has9) && ((has7 && !has11) || !has7) ? 1 : 0;
+
+        if ((has9 && !has11) || (has7 && has13))
+            return 0;
+
+        return 1;
     }
 
     // Questions - 13
@@ -593,7 +635,6 @@ public class MaharashiEntranceExam3 {
 
     public static void main(String[] args) {
         MaharashiEntranceExam3 mee = new MaharashiEntranceExam3();
-        int[] arr = { 2, 5, 6, 9 };
-        System.out.println(mee.isBalancedArray(arr));
+        System.out.println(mee.isNormal(6));
     }
 }
