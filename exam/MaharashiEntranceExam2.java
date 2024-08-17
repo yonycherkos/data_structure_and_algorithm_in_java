@@ -5,10 +5,13 @@ public class MaharashiEntranceExam2 {
     // https://www.youtube.com/watch?v=vaqmoDMqmnY&list=PLHK18USBY-PfYp_NwHJe3gpsbbaGWxm8u
 
     // Consider the following three points when solving MUM entrance exam.
-    // 1. To avoid time consuming and complex calculations, we should use the best
+    // 1. Avoid time consuming and complex calculations. we should use the best
     // techniques to solve a problem.
     // 2. Our program should be easy to read and understand
     // 3. Choose the best techniques for solving a problem
+
+    // NB. before implement a solution for the problem, try to solve the problem
+    // manually. For example, using an array pointers.
 
     // Question - 1: Write a function to remove duplicates from an array of
     // integers.
@@ -46,7 +49,7 @@ public class MaharashiEntranceExam2 {
     // and without using any arrays or other data structures.
     public int reverseNum(int n) {
         int result = 0;
-        while (n != 0) {
+        while (n > 0) {
             result = result * 10 + n % 10;
             n /= 10;
         }
@@ -96,11 +99,10 @@ public class MaharashiEntranceExam2 {
         int oddSum = 0;
         int evenSum = 0;
         for (int num : arr) {
-            if (num % 2 == 0) {
+            if (num % 2 == 0)
                 evenSum += num;
-            } else {
+            else
                 oddSum += num;
-            }
         }
 
         return oddSum - evenSum;
@@ -124,15 +126,17 @@ public class MaharashiEntranceExam2 {
     // array contains only the digits of the number in the same order that they
     // appear in the number. Otherwise it returns 0.
     public int repsEqual(int[] arr, int n) {
-        int lastDigit;
         for (int i = arr.length - 1; i >= 0; i--) {
-            lastDigit = n % 10;
-            n /= 10;
-            if (lastDigit != arr[i]) {
+            if (arr[i] != n % 10) {
                 return 0;
             }
+            n /= 10;
         }
-        return 1;
+
+        if (n == 0)
+            return 1;
+
+        return 0;
     }
 
     // Question - 7: An array is called centered-15 if some consecutive sequence of
@@ -162,10 +166,10 @@ public class MaharashiEntranceExam2 {
 
             if (sum == 15) {
                 return 1;
-            } else {
-                lowerIndex--;
-                upperIndex++;
             }
+
+            lowerIndex--;
+            upperIndex++;
         }
 
         return 0;
@@ -185,17 +189,16 @@ public class MaharashiEntranceExam2 {
         if (arr[len - 1] != 1)
             return 0;
 
-        int result = arr[0];
         for (int i = 1; i < len; i++) {
-            if (result % 2 == 0) {
-                result /= 2;
+            int result;
+            if (arr[i] % 2 == 0) {
+                result = arr[i - 1] / 2;
             } else {
-                result = 3 * result + 1;
+                result = 3 * arr[i - 1] + 1;
             }
 
-            if (result != arr[i]) {
+            if (result != arr[i])
                 return 0;
-            }
         }
 
         return 1;
@@ -294,6 +297,8 @@ public class MaharashiEntranceExam2 {
     // Question - 13: A simple pattern match on the elements of an array "A" can be
     // defined using another array "P". A = {1, 2, 3, -5, -5, 2, 3, 18}, can be
     // defined as P = {3, -2, 3} or {2, 1, -1, -1, 2, 1}
+    // NB. Math.abs() method has been used on the exam video. So we can use Math
+    // module unless explicitly mentioned to not use it.
     public int matches(int[] a, int[] p) {
         int idx = 0;
         for (int i = 0; i < p.length; i++) {
@@ -369,11 +374,11 @@ public class MaharashiEntranceExam2 {
         int num = 1;
         while (sum < n) {
             sum += num;
-            if (num == n) {
-                return 1;
-            }
             num++;
         }
+
+        if (sum == num)
+            return 1;
         return 0;
     }
 
@@ -425,7 +430,7 @@ public class MaharashiEntranceExam2 {
             return 0;
         }
 
-        // Check if the length is of the form n*(n+1)/2
+        // Check if the length of the array match with the form n*(n+1)/2
         int n = 1;
         while (n * (n + 1) / 2 < arr.length) {
             n++;
@@ -457,14 +462,17 @@ public class MaharashiEntranceExam2 {
     // square is an integer whose square root is also an integer, eg. 4, 9, 16 are
     // perfect square but 3, 10, and 17 are not.
     // eg. {9, 0, 2, -5, 7}
+    // NB. start at j = i + 1 in the inner loop whenever possible.
     public int countSquarePairs(int[] arr) {
-        if (arr == null || arr.length == 0)
+        if (arr == null || arr.length <= 1)
             return 0;
 
         int count = 0;
         for (int i = 0; i < arr.length; i++) {
+            if (arr[i] <= 0)
+                continue;
             for (int j = i + 1; j < arr.length; j++) {
-                if ((arr[i] > 0 && arr[j] > 0) && isPerfectSquare(arr[i] + arr[j]) == 1) {
+                if ((arr[j] > 0) && isPerfectSquare(arr[i] + arr[j]) == 1) {
                     System.out.println("X: " + arr[i] + " Y: " + arr[j]);
                     count++;
                 }
@@ -493,12 +501,12 @@ public class MaharashiEntranceExam2 {
         if (n < 0)
             return 0;
 
-        int curr = n + 1;
+        int next = n + 1;
         while (true) {
-            if (isPerfectSquare(curr) == 1) {
-                return curr;
+            if (isPerfectSquare(next) == 1) {
+                return next;
             }
-            curr++;
+            next++;
         }
     }
 
@@ -507,6 +515,8 @@ public class MaharashiEntranceExam2 {
     // trivalent because all elements are either 10, 22, or 19. However, the array
     // {1, 2, 2, 2, 2, 2, 2} is not trivalent because it contains only two different
     // value (1, 2)
+    // NB. Iterate through the array and then add item to result array if it is not
+    // exist and count unique items.
     public int isTrivalentArray(int[] arr) {
         if (arr == null || arr.length == 0)
             return 0;
@@ -514,15 +524,15 @@ public class MaharashiEntranceExam2 {
         int count = 0;
         int[] result = new int[arr.length];
         for (int i = 0; i < arr.length; i++) {
-            boolean exist = false;
+            boolean found = false;
             for (int j = 0; j < result.length; j++) {
                 if (arr[i] == result[j]) {
-                    exist = true;
+                    found = true;
                     break;
                 }
             }
 
-            if (!exist) {
+            if (!found) {
                 result[count] = arr[i];
                 count++;
             }
@@ -541,27 +551,27 @@ public class MaharashiEntranceExam2 {
         if (arr == null || arr.length == 0)
             return 0;
 
-        int maxNum = arr[0];
-        int maxCount = 0;
-        for (int i = 0; i < arr.length; i++) {
-            int count = 1;
-            for (int j = i + 1; j < arr.length; j++) {
-                if (arr[i] == arr[j]) {
-                    count++;
-                }
-            }
+        int mostFrequent = arr[0];
+        int maxCount = 1;
 
-            if (count > maxCount) {
-                maxNum = arr[i];
-                maxCount = count;
+        for (int i = 0; i < arr.length; i++) {
+            int currentCount = 1;
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] == arr[j])
+                    currentCount++;
+            }
+            if (currentCount > maxCount) {
+                maxCount = currentCount;
+                mostFrequent = arr[i];
             }
         }
 
-        return maxNum;
+        return mostFrequent;
     }
 
     // Question - 25: Write a function named largestPrimeFactor that will return the
     // largest prime factor of a number. If the number is <= 1 it should return 0.
+    // NB. 2 is a prime number and 1 is not a prime number
     public int largestPrimeFactor(int n) {
         if (n <= 1)
             return 0;
@@ -586,36 +596,35 @@ public class MaharashiEntranceExam2 {
         int nth = 0;
         int sum = 0;
         int count = 0;
-        while (count < 2) {
+        while (true) {
             if (isPerfectNumber(num) == 1) {
                 nth++;
                 if (nth == i || nth == j) {
                     System.out.println("nth: " + nth + " num: " + num);
                     sum += num;
                     count++;
+                    if (count == 2) {
+                        return sum;
+                    }
                 }
             }
-
             num++;
         }
-
-        return sum;
     }
 
     public int isPerfectNumber(int n) {
-        if (n <= 1)
+        if (n <= 1) {
             return 0;
+        }
 
-        long sum = 0;
-        for (int i = 1; i <= n / 2; i++) {
+        int sumOfFactors = 1; // Start with 1 as it's always a factor
+        for (int i = 2; i <= Math.sqrt(n); i++) {
             if (n % i == 0) {
-                sum += i;
+                sumOfFactors += i;
             }
         }
 
-        if (sum == n)
-            return 1;
-        return 0;
+        return (sumOfFactors == n) ? 1 : 0;
     }
 
     // Question - 27: The fundamental theorem of arithmetic states that every
@@ -733,16 +742,16 @@ public class MaharashiEntranceExam2 {
 
         // Check for occurrences of each value
         for (int i = 0; i < a.length; i++) {
-            int count = 1;
+            int count = 0;
             for (int j = i; j < a.length; j++) {
-                if (a[i] != a[j]) {
-                    break; // If elements are different, no need to check further
+                if (a[i] == a[j]) {
+                    count++;
+                } else {
+                    break;
                 }
-
-                if (count >= a[i]) {
-                    return 0; // Value occurs more than or equal to its value
-                }
-                count++;
+            }
+            if (count >= a[i]) {
+                return 0; // Value occurs more than or equal to its value
             }
         }
 
@@ -787,6 +796,9 @@ public class MaharashiEntranceExam2 {
     // - Each value n appears exactly n times.
     // - All occurrences of the same value are consecutive.
     // Eg. {2, 2, 3, 3, 3, 4, 4, 4, 4} is packed
+
+    // NB. The code uses a nested while loop to count consecutive occurrences of
+    // each unique number. It then checks if the count matches the value.
     public int isPacked(int[] arr) {
         if (arr == null || arr.length == 0) {
             return 0;
@@ -794,28 +806,23 @@ public class MaharashiEntranceExam2 {
 
         int i = 0;
         while (i < arr.length) {
-            // All values are positive.
-            int value = arr[i];
-            if (value <= 0) {
+            int currentValue = arr[i];
+
+            // Check if the value is positive
+            if (currentValue <= 0) {
                 return 0;
             }
 
-            // Each value n appears exactly n times.
+            // Count consecutive occurrences of the current value
             int count = 0;
-            while (i < arr.length && arr[i] == value) {
+            while (i < arr.length && arr[i] == currentValue) {
                 count++;
                 i++;
             }
 
-            if (count != value) {
+            // Check if the count matches the value
+            if (count != currentValue) {
                 return 0;
-            }
-
-            // All occurrences of the same value are consecutive.
-            for (int j = i; j < arr.length; j++) {
-                if (arr[j] == value) {
-                    return 0;
-                }
             }
         }
 
@@ -872,12 +879,15 @@ public class MaharashiEntranceExam2 {
                 return 0;
             }
 
-            if (arr[i] == current && (i == arr.length - 1 || arr[i] != arr[i + 1])) {
+            if (arr[i] == current && (i == 0 || arr[i] != arr[i - 1])) {
                 current++;
             }
         }
 
-        return (current > n) ? 1 : 0;
+        if (current == n + 1)
+            return 1;
+
+        return 0;
     }
 
     // Question - 35: The number 198 has the property that 198 = 11 + 99 + 88, i.e.,
@@ -899,7 +909,11 @@ public class MaharashiEntranceExam2 {
             sum += concat;
             temp /= 10;
         }
-        return (sum == n) ? 1 : 0;
+
+        if (sum == n)
+            return 1;
+
+        return 0;
     }
 
     // Question - 36: Write a function named largestAdjacentSum that iterates
@@ -935,7 +949,11 @@ public class MaharashiEntranceExam2 {
                 }
             }
         }
-        return hasOdd ? 1 : 0;
+
+        if (hasOdd)
+            return 1;
+
+        return 0;
     }
 
     // Question - 38: Define an array to be a 121 array if all elements are either 1
@@ -1070,7 +1088,7 @@ public class MaharashiEntranceExam2 {
 
     // Question - 41: Define a positive number to be isolated if none of the digits
     // in its square are in its cube. For example 168 is n isolated number because
-    // 69*69 = 26569 and 69*69*69 = 4330747 and the quare does not contain any of
+    // 69*69 = 26569 and 69*69*69 = 4330747 and the square does not contain any of
     // the digits 0, 3, 4 and 7 which are the digits used in the cube. On the other
     // hand 162 is not an isolated number because 162*162 = 26244 and 162*162*162 =
     // 4251528 and the cube contains the digit 2 which is also in the square. Write
@@ -1171,7 +1189,7 @@ public class MaharashiEntranceExam2 {
     public static void main(String[] args) {
         MaharashiEntranceExam2 mee = new MaharashiEntranceExam2();
         // mee.printArray(mee.factorialSum(10));
-        int[] a = new int[] { 3, 3, 3, 4, 4, 3, 2, 2, 2, 2, 4 };
-        mee.printArray(mee.clusterCompression(a));
+        int[] a = new int[] { 2, 2, 3, 4, 4, 4, 5 };
+        System.out.println("isSequencedArray: " + mee.isSequencedArray(a, 2, 5));
     }
 }
